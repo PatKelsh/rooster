@@ -1,18 +1,27 @@
 "use client";
 
 import { useState } from "react";
-import { FormControl, InputLabel, MenuItem, Select as MuiSelect, SelectChangeEvent } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select as MuiSelect,
+  SelectChangeEvent,
+  FormHelperText
+} from "@mui/material";
 
 interface SelectProps {
   label: string;
   options: string[];
   value: string;
+  onChange: (event: SelectChangeEvent<string>) => void;
   small?: boolean;
   topBottomMargin?: boolean;
-  onChange: (event: SelectChangeEvent<string>) => void;
+  formHelperText?: boolean;
 }
 
-const Select = ({ label, options, value, small = false, topBottomMargin = false, onChange }: SelectProps) => {
+const Select = ({
+  label, options, value, small = false, onChange, formHelperText = false }: SelectProps) => {
   const [selectedValue, setSelectedValue] = useState(value);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -22,8 +31,13 @@ const Select = ({ label, options, value, small = false, topBottomMargin = false,
 
   return (
     <div className="text-field-container">
+      {formHelperText && (
+        <FormHelperText>
+          {label}
+        </FormHelperText>
+      )}
       <FormControl size={small ? "small" : "medium"}>
-        <InputLabel id={`${label}-label`}>{label}</InputLabel>
+        {!formHelperText && <InputLabel id={`${label}-label`}>{label}</InputLabel>}
         <MuiSelect
           inputProps={{MenuProps: {disableScrollLock: true}}}
           labelId={`${label}-label`}

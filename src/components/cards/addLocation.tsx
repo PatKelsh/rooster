@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getAllLocations } from "@/lib/prisma/location";
 import Card from "@/components/.ui/Card";
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import AddLocationModal from "@/components/modals/AddLocation";

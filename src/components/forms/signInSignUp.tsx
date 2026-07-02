@@ -136,6 +136,7 @@ const SignInSignUpForm = ({ signUp = false }: SignInSignUpFormProps) => {
               type="text"
               disabled={isLoading}
               errorMsg={signUpErrors.firstName?.errors[0]}
+              formHelperText
             />
             <TextField
               label="Last Name"
@@ -143,6 +144,7 @@ const SignInSignUpForm = ({ signUp = false }: SignInSignUpFormProps) => {
               type="text"
               disabled={isLoading}
               errorMsg={signUpErrors.lastName?.errors[0]}
+              formHelperText
             />
           </>
         )}
@@ -152,6 +154,7 @@ const SignInSignUpForm = ({ signUp = false }: SignInSignUpFormProps) => {
           type="email"
           disabled={isLoading}
           errorMsg={signUp ? signUpErrors.email?.errors[0] : signInErrors.email?.errors[0]}
+          formHelperText
         />
         <TextField
           label="Password"
@@ -159,6 +162,7 @@ const SignInSignUpForm = ({ signUp = false }: SignInSignUpFormProps) => {
           type="password"
           disabled={isLoading}
           errorMsg={signUp ? signUpErrors.password?.errors[0] : signInErrors.password?.errors[0]}
+          formHelperText
         />
         {signUp && <TextField
                       label="Confirm Password"
@@ -166,6 +170,7 @@ const SignInSignUpForm = ({ signUp = false }: SignInSignUpFormProps) => {
                       type="password"
                       disabled={isLoading}
                       errorMsg={signUpErrors.confirmPassword?.errors[0]}
+                      formHelperText
                     />}
         <div className="form-btn-container">
           <Button type="submit" disabled={isLoading}>{signUp ? "Sign Up" : "Sign In"}</Button>

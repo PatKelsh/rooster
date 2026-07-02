@@ -1,6 +1,6 @@
 "use client";
 
-import { SubmitEvent } from "react";
+import { SubmitEvent, useState } from "react";
 import AddIcon from '@mui/icons-material/Add';
 import Button from "@/components/.ui/Button";
 import ModalComponent from "@/components/.ui/Modal";
@@ -8,9 +8,39 @@ import Select from "@/components/.ui/Select";
 import TextField from "@/components/.ui/TextField";
 
 const AddLocationModal = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    type: "Indoor",
+    notes: "",
+  });
 
-  const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async(event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
+    try {
+      const response = await fetch("/api/admin/location", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to add location");
+      }
+
+      const data = await response.json();
+    } catch (error) {
+      console.error("Error adding location:", error);
+    }
   }
 
   const addLocationBtn = <><AddIcon /> Add Location</>;
@@ -34,21 +64,29 @@ const AddLocationModal = () => {
         <form id="location-form">
           <div className="form-row-two-thirds">
             <TextField
-              label="Location Name"
+              label="Space Name"
               name="name"
               type="text"
+              onChange={handleInputChange}
+              formHelperText
             />
             <Select
               label="Location Type"
               options={["Indoor", "Outdoor", "Online"]}
-              value=""
-              onChange={(event) => console.log(event.target.value)}
+              value={formData.type}
+              onChange={(event) => setFormData((prevData) => ({
+                ...prevData,
+                type: event.target.value,
+              }))}
+              formHelperText
             />
           </div>
           <TextField
-            label="Notes"
+            label="Notes • optional"
             name="notes"
             type="text"
+            onChange={handleInputChange}
+            formHelperText
           />
         </form>
       </div>

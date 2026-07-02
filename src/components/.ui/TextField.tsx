@@ -5,6 +5,7 @@ import {
   TextField as TextFieldComponent,
   InputLabelProps,
   InputAdornment,
+  FormHelperText
 } from "@mui/material";
 
 interface TextFieldProps {
@@ -22,6 +23,7 @@ interface TextFieldProps {
   resetInitialValue?: boolean;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   InputLabelProps?: InputLabelProps;
+  formHelperText?: boolean;
 }
 
 const TextField = ({
@@ -38,6 +40,7 @@ const TextField = ({
   InputLabelProps,
   slotAdornment,
   resetInitialValue = false,
+  formHelperText = false
 }: TextFieldProps) => {
   const [defaultValue, setDefaultValue] = useState(initialValue);
 
@@ -60,9 +63,14 @@ const TextField = ({
 
   return (
     <div className="text-field-container">
+      {formHelperText && (
+        <FormHelperText>
+          {label}
+        </FormHelperText>
+      )}
       <TextFieldComponent
         className={`text-field ${className || ""}`}
-        label={label}
+        label={formHelperText ? "" : label}
         name={name}
         type={type}
         disabled={disabled}
