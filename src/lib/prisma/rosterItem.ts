@@ -20,6 +20,13 @@ export const getRosterEntryById = async (id: string): Promise<RosterItem | null>
   });
 };
 
+//Get roster entries by a specified user id
+export const getRosterEntriesByUserId = async (userId: string): Promise<RosterItem[]> => {
+  return await db.rosterItem.findMany({
+    where: { userId },
+  });
+};
+
 // Update info for a single roster entry based on a roster entry id. The roster entry id will remain the same but all other fields may be changed
 export const updateRosterEntryById = async (rosterEntryId: string, data: Prisma.RosterItemUpdateInput): Promise<RosterItem> => {
   return await db.rosterItem.update({
