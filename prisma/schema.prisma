@@ -51,6 +51,7 @@ model ClassTermDetails {
   termId                  String
   price                   Float
   capacity                Int
+  location                String
   termSpecificDescription String?
   // teachers                ClassTeacherProfile[] @relation("ClassTermTeachers")
   classInstances          ClassInstance[]
@@ -94,8 +95,9 @@ model Term {
   id          String             @id @default(cuid())
   name        String
   description String?
-  startDate   DateTime
-  endDate     DateTime
+  startDate   String
+  endDate     String
+  weeks       Int
   status      TermStatus         @default(DRAFT)
   classes     ClassTermDetails[]
   createdAt   DateTime           @default(now())

@@ -1,0 +1,55 @@
+@use '../.resources/colors.scss' as *;
+@use '../.resources/screen-sizes.scss' as *;
+
+.card-container {
+  border: 1px solid $table-border-color;
+  border-radius: $table-border-radius;
+  margin: 20px auto;
+  max-width: $sm;
+
+  .card {
+    background-color: $card-bg;
+    border-radius: $table-border-radius;
+    
+    .card-header {
+      border-bottom: 1px solid $table-border-color;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: $card-padding;
+
+      h2 {
+        font-family: 'Roboto', sans-serif;
+        font-size: 1rem;
+        font-weight: 550;
+        letter-spacing: 0.5px;
+      }
+
+      .card-header-content {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .card-icon {
+        color: $card-icon-color;
+        font-size: 1.2rem;
+      }
+
+      .card-subtitle {
+        color: $card-subtitle-color;
+        font-family: 'Roboto', sans-serif;
+        font-size: 0.8rem;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+        margin-top: 5px;
+      }
+    }
+
+    .card-body {
+      padding: $card-padding;
+    }
+  }
+}
