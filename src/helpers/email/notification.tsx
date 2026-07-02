@@ -1,6 +1,4 @@
 import nodemailer from "nodemailer";
-
-import { NextResponse, NextRequest } from "next/server";
 import { getUserById } from "@/lib/prisma/user";
 
 // Create a transporter using SMTP
