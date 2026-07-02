@@ -1,5 +1,5 @@
 import Card from "@/components/.ui/Card";
-import AddLocationCard from "@/components/cards/addLocation";
+import AddLocationCard from "@/components/cards/AddLocation";
 import BusinessIcon from '@mui/icons-material/Business';
 import LinkIcon from '@mui/icons-material/Link';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';

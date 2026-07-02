@@ -7,6 +7,7 @@ interface ModalComponentProps {
   ariaTitle: string;
   ariaDescription: string;
   modalBtnContent: ReactNode;
+  modalHeader?: ReactNode;
   btnAction?: ReactNode;
   modalBtnClassName?: string;
 }
@@ -16,6 +17,7 @@ export default function ModalComponent({
   ariaTitle,
   ariaDescription,
   modalBtnContent,
+  modalHeader,
   btnAction,
   modalBtnClassName
 }: ModalComponentProps) {
@@ -34,6 +36,9 @@ export default function ModalComponent({
       >
         <div className="modal-container">
           <div className="modal-content-container">
+            {modalHeader && <div className="modal-header">
+              {modalHeader}
+            </div>}
             <div className="modal-content">
               {children}
             </div>

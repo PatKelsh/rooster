@@ -5,8 +5,7 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
-  width: 90vw;
-  min-width: 300px;
+  min-width: 280px;
   max-width: $sm;
   margin: 0 auto;
 
@@ -20,6 +19,10 @@
     opacity: 0.85;
   }
 
+  input, .MuiInputBase-root {
+    background-color: $bg-color;
+  }
+
   .form {
     margin-bottom: 20px;
   }
@@ -27,6 +30,11 @@
   .form-header {
     margin-bottom: 20px;
   }
+
+  &.modal-form {
+    padding-bottom: 0;
+  }
+
 }
 
 .solo-form {
@@ -37,4 +45,28 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
+}
+
+@media (min-width: $md) {
+  .form-container {
+    width: $md;
+  }
+
+  .form-row-two-thirds {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    .text-field-container {
+      min-width: 150px;
+    }
+
+    .text-field-container:first-child {
+      flex: 2;
+    }
+    .text-field-container:last-child {
+      flex: 1;
+    }
+  }
 }
