@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import { getClassById } from "@/lib/prisma/class";
-import { sendNotificationEmail } from "@/helpers/email/notification";
+// import { sendNotificationEmail } from "@/helpers/email/notification";
 
 export async function POST(request: NextRequest) {
   try {
@@ -27,6 +27,6 @@ export async function POST(request: NextRequest) {
     // sendNotificationEmail(userIds, subject, message);
 
   } catch (error) {
-    return NextResponse.json({ error: "Failed to process notification" }, { status: 500 });
+    return NextResponse.json({ error: `Failed to process notification. ${error}` }, { status: 500 });
   }
 }

@@ -1,4 +1,4 @@
-const nodemailer = require("nodemailer");
+import nodemailer from "nodemailer";
 
 import { NextResponse, NextRequest } from "next/server";
 import { getUserById } from "@/lib/prisma/user";

@@ -1,4 +1,4 @@
-import { AuthLinks } from '@/components/AuthLinks';
+// import { AuthLinks } from '@/components/AuthLinks';
 export default function ResetPasswordPage() {
   return (
     <>

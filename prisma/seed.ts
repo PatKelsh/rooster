@@ -10,69 +10,67 @@ const prisma = new PrismaClient({ adapter});
 
 async function main() {
   await prisma.user.upsert({
-    where: { email: 'alice@prisma.io' },
+    where: { email: 'alice@test.test' },
     update: {},
     create: {
-      email: 'alice@prisma.io',
+      email: 'alice@test.test',
       firstName: 'Alice',
       lastName: 'Wonderland',
       name: 'Alice Wonderland',
       emailVerified: true,
+      role: 'USER',
     },
   });
   await prisma.user.upsert({
-    where: { email: 'parvati@prisma.io' },
+    where: { email: 'parvati@test.test' },
     update: {},
     create: {
-      email: 'parvati@prisma.io',
+      email: 'parvati@test.test',
       firstName: 'Parvati',
       lastName: 'Shallow',
       name: 'Parvati Shallow',
       emailVerified: true,
+      role: 'USER'
     },
   });
   await prisma.user.upsert({
-    where: { email: 'rob@prisma.io' },
+    where: { email: 'rob@test.test' },
     update: {},
     create: {
-      email: 'rob@prisma.io',
+      email: 'rob@test.io',
       firstName: 'Rob',
       lastName: 'Mariano',
       name: 'Rob Mariano',
       emailVerified: true,
+      role: 'USER'
     },
   });
   await prisma.user.upsert({
-    where: { email: 'sandra@prisma.io' },
+    where: { email: 'sandra@prisma.test' },
     update: {},
     create: {
-      email: 'sandra@prisma.io',
+      email: 'sandra@test.test',
       firstName: 'Sandra',
       lastName: 'Diaz-Twine',
       name: 'Sandra Diaz-Twine',
       emailVerified: true,
+      role: 'ADMIN'
     },
   });
-  await prisma.user.upsert({
-    where: { email: 'kim@prisma.io' },
+  await prisma.class.upsert({
+    where: { name: 'test silks' },
     update: {},
     create: {
-      email: 'kim@prisma.io',
-      firstName: 'Kim',
-      lastName: 'Spradlin',
-      name: 'Kim Spradlin',
-      emailVerified: true,
+      name: 'test silks',
+      description: 'description of test silkls',
     },
   });
-  await prisma.user.upsert({
-    where: { email: 'richard@prisma.io' },
+  await prisma.class.upsert({
+    where: { name: 'test trapeze' },
     update: {},
     create: {
-      email: 'richard@prisma.io',
-      firstName: 'Richard',
-      lastName: 'Hatch',
-      name: 'Richard Hatch',
-      emailVerified: true,
+      name: 'test trapeze',
+      description: 'description of test trapeze',
     },
   });
   await prisma.user.upsert({

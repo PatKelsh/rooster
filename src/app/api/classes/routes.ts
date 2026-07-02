@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { getSession } from "@/lib/get-session";
 import { getRosterEntriesByUserId } from "@/lib/prisma/rosterItem";
 
