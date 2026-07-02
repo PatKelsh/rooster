@@ -71,6 +71,23 @@ button {
     background-color: $primary-btn-bg-hover;
     cursor: pointer;
   }
+
+  &.transparent {
+    background-color: transparent;
+    border: 1px solid $primary-btn-bg;
+    color: $primary-btn-bg;
+    display: flex;
+    justify-content: center;
+
+    &.no-border {
+      border: none;
+    }
+
+    &:hover {
+      background-color: $primary-btn-bg;
+      color: $primary-btn-color;
+    }
+  }
 }
 
 .sign-out-btn {

@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react";
 import { TermProps } from "@/lib/props";
 import { fetchTerms } from "@/lib/api/term";
-import { Add, DeleteForeverOutlined, ImportExport } from "@mui/icons-material";
+import { Add, ImportExport } from "@mui/icons-material";
 import Button from "@/components/.ui/Button";
+import DeleteItemModal from "@/components/modals/DeleteItem";
 
 const AdminSessionsMainPage = () => {
   const [termList, setTermList] = useState<TermProps[]>([]);
@@ -37,14 +38,16 @@ const AdminSessionsMainPage = () => {
             </div>
           </div>
           {termList.map((session) => (
-            <div key={session.id} className="table-row">
+            <div key={session.id} className="table-row hover-reveal">
               <div className="table-cell">
                 {session.name}
               </div>
-              <div>
-                <Button className="icon transparent small danger">
-                  <DeleteForeverOutlined />
-                </Button>
+              <div >
+                <DeleteItemModal
+                  itemId={session.id}
+                  type="session"
+                  name={session.name}
+                />
               </div>
             </div>
           ))}
