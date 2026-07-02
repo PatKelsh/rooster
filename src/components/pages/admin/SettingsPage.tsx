@@ -1,10 +1,8 @@
 import Card from "@/components/.ui/Card";
+import AddLocationCard from "@/components/cards/addLocation";
 import BusinessIcon from '@mui/icons-material/Business';
 import LinkIcon from '@mui/icons-material/Link';
-import LocationCityIcon from '@mui/icons-material/LocationCity';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
-
-import AddLocationModal from "@/components/modals/AddLocation";
 
 const AdminSettingsMainPage = () => {
   return (
@@ -13,23 +11,24 @@ const AdminSettingsMainPage = () => {
         title="Studio Identity"
         subtitle="Name, description, and branding for your studio"
         icon={<BusinessIcon />}
-      />
+      >
+        Card content goes here. This is a simple card component.
+      </Card>
       <Card
         title="Contact & Location"
         subtitle="Displayed in footer and contact page for your studio"
         icon={<LocationOnOutlinedIcon />}
-      />
-      <Card
-        title="Studio & Spaces"
-        subtitle="Locations available for classes and events"
-        icon={<LocationCityIcon />}
-        headerActions={<AddLocationModal />}
-      />
+      >
+        Card content goes here. This is a simple card component.
+      </Card>
+      <AddLocationCard />
       <Card
         title="Social Media"
         subtitle="Linked in your public website footer"
         icon={<LinkIcon />}
-      />
+      >
+        Card content goes here. This is a simple card component.
+      </Card>
     </div>
   );
 };

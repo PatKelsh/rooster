@@ -3,13 +3,14 @@
 import { ReactNode } from 'react';
 
 interface CardProps {
+  children: ReactNode;
   title: string;
   subtitle: string;
   icon: ReactNode;
   headerActions?: ReactNode;
 }
 
-const Card = ({ title, subtitle, icon, headerActions }: CardProps) => {
+const Card = ({ children, title, subtitle, icon, headerActions }: CardProps) => {
   return (
     <div className="card-container">
       <div className="card">
@@ -32,7 +33,7 @@ const Card = ({ title, subtitle, icon, headerActions }: CardProps) => {
           )}
         </div>
         <div className="card-body">
-          Card content goes here. This is a simple card component.
+          {children}
         </div>
       </div>
     </div>

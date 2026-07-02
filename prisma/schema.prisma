@@ -51,7 +51,8 @@ model ClassTermDetails {
   termId                  String
   price                   Float
   capacity                Int
-  location                String
+  location                Location @relation(fields: [locationName], references: [name], onDelete: Cascade)
+  locationName            String
   termSpecificDescription String?
   // teachers                ClassTeacherProfile[] @relation("ClassTermTeachers")
   classInstances          ClassInstance[]
@@ -76,6 +77,17 @@ model ClassInstance {
 
   // @@unique([classTermDetailsId])
   @@map("class_instance")
+}
+
+model Location {
+  name        String @id @default(cuid())
+  type        String
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  classes     ClassTermDetails[]
+
+  @@map("location")
 }
 
 model RosterItem {
