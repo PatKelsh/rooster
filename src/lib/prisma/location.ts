@@ -6,3 +6,7 @@ export const createLocation = async (data: Prisma.LocationCreateInput): Promise<
     data,
   });
 };
+
+export const getAllLocations = async (): Promise<Location[]> => {
+  return await db.location.findMany();
+};

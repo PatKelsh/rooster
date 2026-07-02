@@ -5,9 +5,9 @@ import { ReactNode } from 'react';
 interface CardProps {
   children: ReactNode;
   title: string;
-  subtitle: string;
   icon: ReactNode;
   headerActions?: ReactNode;
+  subtitle?: string;
 }
 
 const Card = ({ children, title, subtitle, icon, headerActions }: CardProps) => {
@@ -21,9 +21,11 @@ const Card = ({ children, title, subtitle, icon, headerActions }: CardProps) => 
             </div>
             <div>
               <h2>{title}</h2>
-              <div className="card-subtitle">
-                {subtitle}
-              </div>
+              {subtitle && (
+                <div className="card-subtitle">
+                  {subtitle}
+                </div>
+              )}
             </div>
           </div>
           {headerActions && (

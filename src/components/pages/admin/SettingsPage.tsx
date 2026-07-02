@@ -3,6 +3,7 @@ import AddLocationCard from "@/components/cards/AddLocation";
 import BusinessIcon from '@mui/icons-material/Business';
 import LinkIcon from '@mui/icons-material/Link';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import PaletteOutlinedIcon from '@mui/icons-material/PaletteOutlined';
 
 const AdminSettingsMainPage = () => {
   return (
@@ -26,6 +27,12 @@ const AdminSettingsMainPage = () => {
         title="Social Media"
         subtitle="Linked in your public website footer"
         icon={<LinkIcon />}
+      >
+        Card content goes here. This is a simple card component.
+      </Card>
+      <Card
+        title="Customize Theme"
+        icon={<PaletteOutlinedIcon />}
       >
         Card content goes here. This is a simple card component.
       </Card>

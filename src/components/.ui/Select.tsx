@@ -1,36 +1,50 @@
 "use client";
 
-import { useState } from 'react';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { useState } from "react";
+import { FormControl, InputLabel, MenuItem, Select as MuiSelect, SelectChangeEvent } from "@mui/material";
 
-const SelectComponent = () => {
-  const [age, setAge] = useState('');
+interface SelectProps {
+  label: string;
+  options: string[];
+  value: string;
+  small?: boolean;
+  topBottomMargin?: boolean;
+  onChange: (event: SelectChangeEvent<string>) => void;
+}
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
+const Select = ({ label, options, value, small = false, topBottomMargin = false, onChange }: SelectProps) => {
+  const [selectedValue, setSelectedValue] = useState(value);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
   };
 
   return (
     <div className="text-field-container">
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          label="Age"
-          onChange={handleChange}
+      <FormControl size={small ? "small" : "medium"}>
+        <InputLabel id={`${label}-label`}>{label}</InputLabel>
+        <MuiSelect
+          inputProps={{MenuProps: {disableScrollLock: true}}}
+          labelId={`${label}-label`}
+          value={selectedValue}
+          onChange={(event) => {
+            setSelectedValue(event.target.value);
+            onChange(event);
+          }}
+          open={isOpen}
+          onClose={handleToggle}
+          onOpen={handleToggle}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
+          {options.map((option, index) => (
+            <MenuItem key={index} value={option}>
+              {option}
+            </MenuItem>
+          ))}
+        </MuiSelect>
       </FormControl>
     </div>
   );
-}
+};
 
-export default SelectComponent;
+export default Select;

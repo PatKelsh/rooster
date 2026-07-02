@@ -1,4 +1,4 @@
-import { MouseEvent, MouseEventHandler, ReactNode } from "react";
+import { MouseEvent, MouseEventHandler, ReactNode, SubmitEvent } from "react";
 
 interface ButtonProps {
   children: ReactNode;
@@ -8,12 +8,18 @@ interface ButtonProps {
   type?: "button" | "submit" | "reset";
   onClick?: (() => void);
   handleClick?: MouseEventHandler<HTMLButtonElement>;
+  handleSubmit?: (event: SubmitEvent<HTMLFormElement>) => void;
 }
 
-const Button = ({ children, ariaLabel, className, type = "button", onClick, handleClick, disabled = false }: ButtonProps) => {
-  const handleOnClick = (event?: MouseEvent<HTMLButtonElement>) => {
+const Button = ({
+  children,
+  ariaLabel,
+  className,
+  type = "button", onClick, handleClick, handleSubmit, disabled = false }: ButtonProps) => {
+  const handleOnClick = (event: MouseEvent<HTMLButtonElement>) => {
     if (onClick) onClick();
-    if (handleClick && event) handleClick(event);
+    if (handleClick) handleClick(event);
+    if (handleSubmit) handleSubmit(event as unknown as SubmitEvent<HTMLFormElement>);
   }
 
   return (
