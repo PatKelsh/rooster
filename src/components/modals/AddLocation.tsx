@@ -1,13 +1,14 @@
 "use client";
 
-import { SubmitEvent, useState } from "react";
+import { Dispatch, SetStateAction, SubmitEvent, useState } from "react";
 import AddIcon from '@mui/icons-material/Add';
 import Button from "@/components/.ui/Button";
 import ModalComponent from "@/components/.ui/Modal";
 import Select from "@/components/.ui/Select";
 import TextField from "@/components/.ui/TextField";
 
-const AddLocationModal = () => {
+
+const AddLocationModal = ({ setIsLoading }: { setIsLoading: Dispatch<SetStateAction<boolean>> }) => {
   const [closeOnAction, setCloseOnAction] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -18,7 +19,7 @@ const AddLocationModal = () => {
   const resetCloseOnAction = () => {
     setTimeout(() => {
       setCloseOnAction(false);
-    }, 1000);
+    }, 500);
   }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -32,6 +33,7 @@ const AddLocationModal = () => {
   const handleSubmit = async(event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
+      setIsLoading(true);
       const response = await fetch("/api/admin/location", {
         method: "POST",
         headers: {
@@ -45,7 +47,6 @@ const AddLocationModal = () => {
       }
 
       setCloseOnAction(true);
-      const data = await response.json();
     } catch (error) {
       console.error("Error adding location:", error);
     } finally {
