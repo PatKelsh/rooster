@@ -3,11 +3,20 @@
 import { useEffect, useState } from "react";
 import Card from "@/components/.ui/Card";
 import LocationCityIcon from '@mui/icons-material/LocationCity';
+import SpaOutlinedIcon from '@mui/icons-material/SpaOutlined';
+import ComputerIcon from '@mui/icons-material/Computer';
 import AddLocationModal from "@/components/modals/AddLocation";
+
+interface LocationProps {
+  id: number;
+  name: string;
+  type: string;
+  notes?: string;
+}
 
 const AddLocationCard = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [locations, setLocations] = useState([]);
+  const [locations, setLocations] = useState<LocationProps[]>([]);
   
   useEffect(() => {
     const fetchLocations = async () => {
@@ -26,17 +35,42 @@ const AddLocationCard = () => {
     fetchLocations();
   }, [isLoading]);
 
+  const locationIcon = (type: string) => {
+    switch (type) {
+      case "Indoor":
+        return <LocationCityIcon />;
+      case "Outdoor":
+        return <SpaOutlinedIcon />;
+      case "Online":
+        return <ComputerIcon />;
+      default:
+        return;
+    }
+  };
+
   return (
       <Card
         title="Studio & Spaces"
-        subtitle="Locations available for classes and events"
+        subtitle={`${locations.length} ${locations.length === 1 ? "space" : "spaces"} available`}
         icon={<LocationCityIcon />}
         headerActions={<AddLocationModal setIsLoading={setIsLoading} />}
       >
         {locations.length > 0 ? (
-          <>
-            Yay! You have {locations.length} location{locations.length > 1 ? "s" : ""} available.
-          </>
+          locations.map((location: LocationProps, index: number) => (
+            <div key={index} className="card-section">
+              <div className={`card-section-icon ${location.type.toLowerCase()} location-type-icon-container`}>
+                {locationIcon(location.type)}
+              </div>
+              <div>
+                <h3>{location.name}</h3>
+                {location.notes && (
+                  <div className="card-section-notes">
+                    {location.notes}
+                  </div>
+                )}
+              </div>
+            </div> 
+          ))
         ) : (
           <>
             No locations available. Please add a location to get started.

@@ -11,6 +11,12 @@ $dark-cyan: rgba(0, 147, 150, 1);
 $dark-teal: rgba(0, 95, 115, 1);
 $ink-black: rgba(0, 18, 25, 1);
 
+$meadow-green: rgba(82, 182, 154, 1);
+$meadow-green-15: rgba(82, 182, 154, 0.15);
+
+$ocean-blue: rgba(0, 119, 182, 1);
+$ocean-blue-15: rgba(0, 180, 216, 0.15);
+
 $tekhelet: rgba(66, 44, 114, 1);
 $african-violet: rgba(142, 123, 183, 1);
 
@@ -40,6 +46,7 @@ $seasalt-25: rgba(248, 249, 250, 0.25);
 $vanilla-custard-25: rgba(244, 236, 224, 0.25);
 $brown-red-15: rgba(155,34,38, 0.15);
 $sunflower-gold-15: rgba(252, 191, 73, 0.15);
+$burnt-caramel-13: rgba(202, 103, 2, 0.13);
 $brown-red-10: rgba(155,34,38, 0.1);
 $oxidized-iron-10: rgba(74, 32, 18, 0.10);
 
@@ -111,3 +118,10 @@ $card-padding: 20px;
 $card-subtitle-color: $slate-gray;
 $card-icon-color: $brown-red;
 $card-icon-size: 1.2rem;
+$card-notes-color: $slate-gray;
+$indoor-icon-bg: $burnt-caramel-13;
+$indoor-icon-color: $burnt-caramel;
+$outdoor-icon-bg: $meadow-green-15;
+$outdoor-icon-color: $dark-teal;
+$online-icon-bg: $ocean-blue-15;
+$online-icon-color: $ocean-blue;

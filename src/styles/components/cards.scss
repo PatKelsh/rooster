@@ -48,8 +48,67 @@
       }
     }
 
-    .card-body {
+    .card-section {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
       padding: $card-padding;
+      border-bottom: 1px solid $table-border-color;
+
+      h3 {
+        font-family: 'Roboto', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 525;
+        letter-spacing: 0.8px;
+      }
     }
+
+    .card-section:last-child {
+      border-bottom: none;
+    }
+
+    .card-section-notes {
+      color: $card-notes-color;
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      margin-top: 5px;
+    }
+
+    .card-section-icon {
+      color: $card-icon-color;
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.location-type-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 25%;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  &.indoor {
+    background-color: $indoor-icon-bg;
+    color: $indoor-icon-color !important;
+  }
+
+  &.outdoor {
+    background-color: $outdoor-icon-bg;
+    color: $outdoor-icon-color !important;
+  }
+
+  &.online {
+    background-color: $online-icon-bg;
+    color: $online-icon-color !important;
   }
 }
