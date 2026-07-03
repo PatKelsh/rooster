@@ -8,11 +8,18 @@ import Select from "@/components/.ui/Select";
 import TextField from "@/components/.ui/TextField";
 
 const AddLocationModal = () => {
+  const [closeOnAction, setCloseOnAction] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     type: "Indoor",
     notes: "",
   });
+
+  const resetCloseOnAction = () => {
+    setTimeout(() => {
+      setCloseOnAction(false);
+    }, 1000);
+  }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = event.target;
@@ -37,9 +44,12 @@ const AddLocationModal = () => {
         throw new Error("Failed to add location");
       }
 
+      setCloseOnAction(true);
       const data = await response.json();
     } catch (error) {
       console.error("Error adding location:", error);
+    } finally {
+      resetCloseOnAction();
     }
   }
 
@@ -59,6 +69,7 @@ const AddLocationModal = () => {
       modalBtnClassName="w-icon"
       modalHeader={<h2>New Location</h2>}
       btnAction={submitBtn}
+      closeOnAction={closeOnAction}
     >
       <div className="form-container modal-form">
         <form id="location-form">

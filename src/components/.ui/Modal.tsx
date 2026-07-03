@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import Button from './Button';
 import Modal from '@mui/material/Modal';
 
@@ -10,6 +10,7 @@ interface ModalComponentProps {
   modalHeader?: ReactNode;
   btnAction?: ReactNode;
   modalBtnClassName?: string;
+  closeOnAction?: boolean;
 }
 
 export default function ModalComponent({
@@ -19,11 +20,19 @@ export default function ModalComponent({
   modalBtnContent,
   modalHeader,
   btnAction,
-  modalBtnClassName
+  modalBtnClassName,
+  closeOnAction = false,
 }: ModalComponentProps) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+    if (closeOnAction && open) {
+      const timer = setTimeout(() => setOpen(false), 0);
+      return () => clearTimeout(timer);
+    }
+  }, [closeOnAction, open]);
 
   return (
     <div>
