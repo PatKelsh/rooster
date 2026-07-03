@@ -1,6 +1,8 @@
 import { PrismaClient } from '@client';
 import { PrismaPg } from '@prisma/adapter-pg';
 
+import { logger } from "@/helpers/logger";
+
 const adapter = new PrismaPg({
   connectionString: process.env.DATABASE_URL!,
 });
@@ -190,7 +192,7 @@ main()
     await prisma.$disconnect()
   })
   .catch(async (e) => {
-    console.error(e)
+    logger.error(`Error during seeding: ${e instanceof Error ? e.message : "An unexpected error occurred"}`);
     await prisma.$disconnect()
     process.exit(1)
   })

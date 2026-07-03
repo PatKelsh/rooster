@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import { logger } from "@/helpers/logger";
 
 // Create a transporter using SMTP
 const transporter = nodemailer.createTransport({
@@ -21,10 +22,10 @@ export async function sendVerificationEmail(email: string){
     		html: "<b>This is a verificaiton email in HTML</b>", // HTML body
   		});
 
-  		console.log("Message sent: %s", info.messageId);
+  		logger.info("Message sent: %s", info.messageId);
   		// Preview URL is only available when using an Ethereal test account
-  		console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+  		logger.info("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 	} catch (err) {
-  		console.error("Error while sending mail:", err);
+  		logger.error("Error while sending mail:", err);
 	}
 }
