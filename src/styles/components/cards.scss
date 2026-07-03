@@ -52,15 +52,58 @@
       display: flex;
       flex-direction: row;
       align-items: center;
+      justify-content: space-between;
       gap: 10px;
       padding: $card-padding;
       border-bottom: 1px solid $table-border-color;
+
+      .action-buttons {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 10px;
+
+        button {
+          color: $card-section-btn-color;
+          opacity: 0.8;
+
+          &:hover {
+            background-color: $card-section-btn-hover;
+            opacity: 1;
+          }
+
+          &.danger {
+            color: $svg-color-danger;
+
+            &:hover {
+              background-color: $svg-color-danger-background-hover;
+            }
+          }
+        }
+      }
 
       h3 {
         font-family: 'Roboto', sans-serif;
         font-size: 0.9rem;
         font-weight: 525;
         letter-spacing: 0.8px;
+      }
+
+      .card-section-content {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .reveal {
+        display: none;
+      }
+
+      &:hover {
+        .reveal {
+          display: block;
+        }
       }
     }
 

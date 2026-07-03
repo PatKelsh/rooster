@@ -6,6 +6,10 @@ import LocationCityIcon from '@mui/icons-material/LocationCity';
 import SpaOutlinedIcon from '@mui/icons-material/SpaOutlined';
 import ComputerIcon from '@mui/icons-material/Computer';
 import AddLocationModal from "@/components/modals/AddLocation";
+import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+
+import Button from "@/components/.ui/Button";
 
 interface LocationProps {
   id: number;
@@ -58,16 +62,28 @@ const AddLocationCard = () => {
         {locations.length > 0 ? (
           locations.map((location: LocationProps, index: number) => (
             <div key={index} className="card-section">
-              <div className={`card-section-icon ${location.type.toLowerCase()} location-type-icon-container`}>
-                {locationIcon(location.type)}
+              <div className="card-section-content">
+                <div className={`card-section-icon ${location.type.toLowerCase()} location-type-icon-container`}>
+                  {locationIcon(location.type)}
+                </div>
+                <div>
+                  <h3>{location.name}</h3>
+                  {location.notes && (
+                    <div className="card-section-notes">
+                      {location.notes}
+                    </div>
+                  )}
+                </div>
               </div>
-              <div>
-                <h3>{location.name}</h3>
-                {location.notes && (
-                  <div className="card-section-notes">
-                    {location.notes}
-                  </div>
-                )}
+              <div className="reveal">
+                <div className="action-buttons">
+                  <Button className="icon x-small transparent no-border">
+                    <BorderColorIcon />
+                  </Button>
+                  <Button className="icon x-small transparent no-border danger">
+                    <DeleteForeverOutlinedIcon />
+                  </Button>
+                </div>
               </div>
             </div> 
           ))
