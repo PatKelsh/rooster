@@ -11,6 +11,7 @@ type FetchTermsResponse = Omit<
 export const createTerm = async (
   data: Prisma.TermCreateInput,
 ): Promise<Term> => {
+  console.log("Creating term with data:", data);
   return await db.term.create({
     data,
   });
@@ -37,23 +38,23 @@ export const getAllTerms = async (): Promise<Term[]> => {
   });
 };
 
-export const getLiveTerms = async (): Promise<Omit<Term, "createdAt" | "updatedAt" | "description">[]> => {
-  return await db.term.findMany({
-    where: {
-      status: "LIVE",
-    },
-    select: {
-      id: true,
-      name: true,
-      startDate: true,
-      endDate: true,
-      status: true,
-    },
-    orderBy: [
-      { startDate: "asc" }
-    ],
-  });
-};
+// export const getLiveTerms = async (): Promise<Omit<Term, "createdAt" | "updatedAt" | "description">[]> => {
+//   return await db.term.findMany({
+//     where: {
+//       status: "LIVE",
+//     },
+//     select: {
+//       id: true,
+//       name: true,
+//       startDate: true,
+//       endDate: true,
+//       status: true,
+//     },
+//     orderBy: [
+//       { startDate: "asc" }
+//     ],
+//   });
+// };
 
 export const getTermById = async (id: string): Promise<Term | null> => {
   return await db.term.findUnique({

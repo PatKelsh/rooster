@@ -35,7 +35,47 @@ const AdminSessionsMainPage = () => {
               Session <ImportExport />
             </div>
           </div>
-          {termList.map((session) => (
+          {termList.length > 0 && !isLoading ? (
+            <div className="table-body">
+              {termList.map((session) => (
+                <div key={session.id} className="table-row hover-reveal">
+                  <div className="table-cell">
+                    {session.name}
+                  </div>
+                  <div >
+                    <DeleteItemModal
+                      itemId={session.id}
+                      type="session"
+                      name={session.name}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>  
+          ) : (
+            <div className="table-body">
+              <div className="table-row">
+                <div className="table-cell">
+                  No sessions found.
+                </div>
+              </div>
+            </div>
+          )}
+          {error && (
+            <div className="table-row">
+              <div className="table-cell">
+                Error: {error}
+              </div>
+            </div>
+          )}
+          {isLoading && (
+            <div className="table-row">
+              <div className="table-cell">
+                Loading...
+              </div>
+            </div>
+          )}
+          {/* {termList.map((session) => (
             <div key={session.id} className="table-row hover-reveal">
               <div className="table-cell">
                 {session.name}
@@ -48,7 +88,7 @@ const AdminSessionsMainPage = () => {
                 />
               </div>
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
     </div>
