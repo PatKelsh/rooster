@@ -54,7 +54,7 @@ const AddLocationModal = ({ setIsLoading }: { setIsLoading: Dispatch<SetStateAct
     }
   }
 
-  const addLocationBtn = <><AddIcon /> Add Location</>;
+  const addLocationBtn = <><AddIcon /> Add Space</>;
 
   const submitBtn = (
     <Button handleSubmit={handleSubmit} className="primary">

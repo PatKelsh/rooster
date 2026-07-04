@@ -18,7 +18,9 @@ const AdminSettingsMainPage = () => {
         subtitle="Displayed in footer and contact page for your studio"
         icon={<LocationOnOutlinedIcon />}
       >
-        Card content goes here. This is a simple card component.
+        <div className="card-section">
+          Card content goes here. This is a simple card component.
+        </div>
       </Card>
       <AddLocationCard />
       <Card
@@ -26,13 +28,17 @@ const AdminSettingsMainPage = () => {
         subtitle="Linked in your public website footer"
         icon={<LinkIcon />}
       >
-        Card content goes here. This is a simple card component.
+        <div className="card-section">
+          Card content goes here. This is a simple card component.
+        </div>
       </Card>
       <Card
         title="Customize Theme"
         icon={<PaletteOutlinedIcon />}
       >
-        Card content goes here. This is a simple card component.
+        <div className="card-section">
+          Card content goes here. This is a simple card component.
+        </div>
       </Card>
     </div>
   );
