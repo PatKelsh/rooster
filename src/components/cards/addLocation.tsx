@@ -7,10 +7,12 @@ import SpaOutlinedIcon from '@mui/icons-material/SpaOutlined';
 import ComputerIcon from '@mui/icons-material/Computer';
 import AddLocationModal from "@/components/modals/AddLocation";
 import BorderColorIcon from '@mui/icons-material/BorderColor';
+import Select from "@/components/.ui/Select";
+import TextField from "@/components/.ui/TextField";
 
 import Button from "@/components/.ui/Button";
 import DeleteLocationBtn from "@/components/DeleteLocationBtn";
-import LocationForm from "@/components/forms/location";
+import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 
 interface LocationProps {
   id: string;
@@ -23,7 +25,12 @@ const AddLocationCard = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [locations, setLocations] = useState<LocationProps[]>([]);
   const [editLocationId, setEditLocationId] = useState<string | null>(null);
-  
+  const [formData, setFormData] = useState({
+    id: "",
+    name: "",
+    type: "Indoor",
+    notes: "",
+  });
   
   useEffect(() => {
     const fetchLocations = async () => {
@@ -59,6 +66,58 @@ const AddLocationCard = () => {
     return editLocationId === id;
   }
 
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleEditSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!editLocationId) return;
+
+    try {
+      const response = await fetch(`/api/admin/location`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update location");
+      }
+
+      setIsLoading(true);
+      setEditLocationId(null);
+    } catch (error) {
+      console.error("Error updating location:", error);
+    }
+  };
+
+  const editLocation = (location: LocationProps) => {
+    setFormData({
+      id: location.id,
+      name: location.name,
+      type: location.type,
+      notes: location.notes || ""
+    });
+    setEditLocationId(location.id);
+  }
+
+  const cancelEdit = () => {
+    setEditLocationId(null);
+    setFormData({
+      id: "",
+      name: "",
+      type: "Indoor",
+      notes: "",
+    });
+  };
+
   return (
       <Card
         title="Studio & Spaces"
@@ -70,13 +129,46 @@ const AddLocationCard = () => {
           locations.map((location: LocationProps, index: number) => (
             <div key={index} className={`card-section ${isLocationBeingEdited(location.id) ? "editing" : ""}`}>
               {isLocationBeingEdited(location.id) ? (
-                <>
-                  <LocationForm
-                    initialData={location}
-                    editMode={true}
-                    setEditLocationId={setEditLocationId}
-                  />
-                </>
+                <div className="form-container">
+                  <form id="location-form" onSubmit={handleEditSubmit}>
+                    <div className="form-row-two-thirds">
+                      <TextField
+                        label="Space Name"
+                        name="name"
+                        type="text"
+                        initialValue={location.name}
+                        onChange={handleInputChange}
+                      />
+                      <Select
+                        label="Location Type"
+                        options={["Indoor", "Outdoor", "Online"]}
+                        value={location.type}
+                        onChange={(event) => setFormData((prevData) => ({
+                          ...prevData,
+                          type: event.target.value,
+                        }))}
+                        formHelperText
+                      />
+                    </div>
+                    <TextField
+                      label="Notes • optional"
+                      name="notes"
+                      type="text"
+                      initialValue={location.notes || ""}
+                      onChange={handleInputChange}
+                      formHelperText
+                    />
+                    <div className="form-actions">
+                      <Button className="w-icon" type="submit">
+                        <SaveOutlinedIcon />
+                        Save
+                      </Button>
+                      <Button className="transparent" onClick={cancelEdit}>
+                        Cancel
+                      </Button>
+                    </div>
+                  </form>
+                </div>
               ) : (<>
                 <div className="card-section-content">
                   <div className={`card-section-icon ${location.type.toLowerCase()} location-type-icon-container`}>
@@ -100,7 +192,7 @@ const AddLocationCard = () => {
                 </div>
                 <div className="reveal">
                   <div className="action-buttons">
-                    <Button className="icon x-small transparent no-border" onClick={() => setEditLocationId(location.id)}>
+                    <Button className="icon x-small transparent no-border" onClick={() => editLocation(location)}>
                       <BorderColorIcon />
                     </Button>
                     <DeleteLocationBtn id={location.id} setIsLoading={setIsLoading} />

@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import { createLocation, deleteLocation } from "@/lib/prisma/location";
+import { createLocation, deleteLocation, updateLocation } from "@/lib/prisma/location";
 
 export async function POST(
   request: NextRequest
@@ -42,6 +42,32 @@ export async function DELETE(
     }
 
     return NextResponse.json(deletedLocation, { status: 200 });
+  } catch (error) {
+    return NextResponse.json(
+      { error: `Internal Server Error: ${error instanceof Error ? error.message : "An unexpected error occurred"}` },
+      { status: 500 },
+    );
+  }
+};
+
+export async function PUT(
+  request: NextRequest
+) {
+  try {
+    const data = await request.json();
+
+    if (!data.id || !data.name || !data.type) {
+      return NextResponse.json({ error: "ID, name, and type are required" }, { status: 400 });
+    }
+
+    // Assuming you have an updateLocation function in your Prisma client
+    const updatedLocation = await updateLocation(data.id, data);
+
+    if (!updatedLocation) {
+      return NextResponse.json({ error: "Location not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(updatedLocation, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { error: `Internal Server Error: ${error instanceof Error ? error.message : "An unexpected error occurred"}` },
