@@ -35,6 +35,11 @@
     padding-top: 0;
   }
 
+  .form-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 }
 
 .solo-form {
@@ -50,6 +55,15 @@
 @media (min-width: $md) {
   .form-container {
     width: $md;
+
+    .form-row {
+      flex-direction: row;
+      gap: 20px;
+
+      .text-field-container {
+        width: 100% !important;
+      }
+    }
   }
 
   .form-row-two-thirds {

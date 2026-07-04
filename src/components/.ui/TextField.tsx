@@ -20,6 +20,7 @@ interface TextFieldProps {
   errorMsg?: string;
   shrink?: boolean;
   slotAdornment?: React.ReactNode;
+  endAdornment?: React.ReactNode;
   resetInitialValue?: boolean;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   InputLabelProps?: InputLabelProps;
@@ -39,6 +40,7 @@ const TextField = ({
   onChange,
   InputLabelProps,
   slotAdornment,
+  endAdornment,
   resetInitialValue = false,
   formHelperText = true
 }: TextFieldProps) => {
@@ -87,6 +89,11 @@ const TextField = ({
             startAdornment: slotAdornment ? (
               <InputAdornment position="start">
                 {slotAdornment}
+              </InputAdornment>
+            ) : undefined,
+            endAdornment: endAdornment ? (
+              <InputAdornment position="end">
+                {endAdornment}
               </InputAdornment>
             ) : undefined,
           },

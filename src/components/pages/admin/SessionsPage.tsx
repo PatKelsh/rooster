@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 import { TermProps } from "@/lib/props";
 import { fetchTerms } from "@/lib/api/term";
-import { Add, ImportExport } from "@mui/icons-material";
-import Button from "@/components/.ui/Button";
+import { ImportExport } from "@mui/icons-material";
 import DeleteItemModal from "@/components/modals/DeleteItem";
+import AddSessionModal from "@/components/modals/AddSession";
 
 const AdminSessionsMainPage = () => {
   const [termList, setTermList] = useState<TermProps[]>([]);
@@ -25,9 +25,7 @@ const AdminSessionsMainPage = () => {
         <div>
         </div>
         <div>
-          <Button className="w-icon">
-            <Add /> New Session
-          </Button>
+          <AddSessionModal />
         </div>
       </div>
       <div className="admin-page-content">
