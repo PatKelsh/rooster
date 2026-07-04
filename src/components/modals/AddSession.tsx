@@ -6,7 +6,11 @@ import Button from "@/components/.ui/Button";
 import ModalComponent from "@/components/.ui/Modal";
 import TextField from "@/components/.ui/TextField";
 
-const AddSessionModal = () => {
+interface AddSessionModalProps {
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
+}
+
+const AddSessionModal = ({ setIsLoading }: AddSessionModalProps) => {
   const [closeOnAction, setCloseOnAction] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -58,6 +62,7 @@ const AddSessionModal = () => {
   const handleSubmit = async(event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
+      setIsLoading(true);
       const response = await fetch("/api/admin/term", {
         method: "POST",
         headers: {

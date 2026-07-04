@@ -1,6 +1,7 @@
 @use './.resources/colors.scss' as *;
 @use './.resources/screen-sizes.scss' as *;
 
+@forward './components/accordion.scss';
 @forward './components/admin-dash.scss';
 @forward './components/buttons.scss';
 @forward './components/cards.scss';

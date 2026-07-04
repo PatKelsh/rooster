@@ -11,7 +11,6 @@ type FetchTermsResponse = Omit<
 export const createTerm = async (
   data: Prisma.TermCreateInput,
 ): Promise<Term> => {
-  console.log("Creating term with data:", data);
   return await db.term.create({
     data,
   });
