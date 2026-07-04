@@ -10,3 +10,9 @@ export const createLocation = async (data: Prisma.LocationCreateInput): Promise<
 export const getAllLocations = async (): Promise<Location[]> => {
   return await db.location.findMany();
 };
+
+export const deleteLocation = async (id: string): Promise<Location | null> => {
+  return await db.location.delete({
+    where: { id },
+  });
+};

@@ -1,5 +1,6 @@
 import Card from "@/components/.ui/Card";
 import AddLocationCard from "@/components/cards/addLocation";
+import StudioIdentityCard from "@/components/cards/studioIdentity";
 import BusinessIcon from '@mui/icons-material/Business';
 import LinkIcon from '@mui/icons-material/Link';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
@@ -8,13 +9,7 @@ import PaletteOutlinedIcon from '@mui/icons-material/PaletteOutlined';
 const AdminSettingsMainPage = () => {
   return (
     <div>
-      <Card
-        title="Studio Identity"
-        subtitle="Name, description, and branding for your studio"
-        icon={<BusinessIcon />}
-      >
-        Card content goes here. This is a simple card component.
-      </Card>
+      <StudioIdentityCard />
       <Card
         title="Contact & Location"
         subtitle="Displayed in footer and contact page for your studio"

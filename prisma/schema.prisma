@@ -51,8 +51,8 @@ model ClassTermDetails {
   termId                  String
   price                   Float
   capacity                Int
-  location                Location @relation(fields: [locationName], references: [name], onDelete: Cascade)
-  locationName            String
+  locationId              String
+  location                Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
   termSpecificDescription String?
   // teachers                ClassTeacherProfile[] @relation("ClassTermTeachers")
   classInstances          ClassInstance[]
@@ -80,7 +80,8 @@ model ClassInstance {
 }
 
 model Location {
-  name        String @id @default(cuid())
+  id          String @id @default(cuid())
+  name        String
   type        String
   notes       String?
   createdAt   DateTime @default(now())

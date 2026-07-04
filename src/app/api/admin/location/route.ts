@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import { createLocation } from "@/lib/prisma/location";
+import { createLocation, deleteLocation } from "@/lib/prisma/location";
 
 export async function POST(
   request: NextRequest
@@ -15,6 +15,33 @@ export async function POST(
     const newLocation = await createLocation(data);
 
     return NextResponse.json(newLocation, { status: 201 });
+  } catch (error) {
+    return NextResponse.json(
+      { error: `Internal Server Error: ${error instanceof Error ? error.message : "An unexpected error occurred"}` },
+      { status: 500 },
+    );
+  }
+};
+
+export async function DELETE(
+  request: NextRequest
+) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json({ error: "ID is required" }, { status: 400 });
+    }
+
+    // Assuming you have a deleteLocation function in your Prisma client
+    const deletedLocation = await deleteLocation(id);
+
+    if (!deletedLocation) {
+      return NextResponse.json({ error: "Location not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(deletedLocation, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { error: `Internal Server Error: ${error instanceof Error ? error.message : "An unexpected error occurred"}` },

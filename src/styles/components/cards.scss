@@ -82,6 +82,16 @@
         }
       }
 
+      &.no-content {
+        font-family: 'Roboto', sans-serif;
+        font-size: 0.8rem;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+        color: $slate-gray;
+        display: flex;
+        justify-content: center;
+      }
+
       h3 {
         font-family: 'Roboto', sans-serif;
         font-size: 0.9rem;
@@ -103,6 +113,44 @@
       &:hover {
         .reveal {
           display: block;
+        }
+      }
+
+      .card-section-title {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+      }
+
+      .card-section-labels {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 5px;
+
+        .card-section-label {
+          font-family: 'Roboto', sans-serif;
+          font-size: 0.7rem;
+          font-weight: 500;
+          letter-spacing: 0.5px;
+          padding: 2px 6px;
+          border-radius: 4px;
+          text-transform: uppercase;
+
+          &.indoor {
+            background-color: $indoor-icon-bg;
+            color: $indoor-icon-color !important;
+          }
+
+          &.outdoor {
+            background-color: $outdoor-icon-bg;
+            color: $outdoor-icon-color !important;
+          }
+
+          &.online {
+            background-color: $online-icon-bg;
+            color: $online-icon-color !important;
+          }
         }
       }
     }

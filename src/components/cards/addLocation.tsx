@@ -6,13 +6,13 @@ import LocationCityIcon from '@mui/icons-material/LocationCity';
 import SpaOutlinedIcon from '@mui/icons-material/SpaOutlined';
 import ComputerIcon from '@mui/icons-material/Computer';
 import AddLocationModal from "@/components/modals/AddLocation";
-import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 
 import Button from "@/components/.ui/Button";
+import DeleteLocationBtn from "@/components/DeleteLocationBtn";
 
 interface LocationProps {
-  id: number;
+  id: string;
   name: string;
   type: string;
   notes?: string;
@@ -67,7 +67,14 @@ const AddLocationCard = () => {
                   {locationIcon(location.type)}
                 </div>
                 <div>
-                  <h3>{location.name}</h3>
+                  <div className="card-section-title">
+                    <h3>{location.name}</h3>
+                    <div className="card-section-labels">
+                      <span className={`card-section-label ${location.type.toLowerCase()}`}>
+                        {location.type}
+                      </span>
+                    </div>
+                  </div>
                   {location.notes && (
                     <div className="card-section-notes">
                       {location.notes}
@@ -80,17 +87,15 @@ const AddLocationCard = () => {
                   <Button className="icon x-small transparent no-border">
                     <BorderColorIcon />
                   </Button>
-                  <Button className="icon x-small transparent no-border danger">
-                    <DeleteForeverOutlinedIcon />
-                  </Button>
+                  <DeleteLocationBtn id={location.id} setIsLoading={setIsLoading} />
                 </div>
               </div>
             </div> 
           ))
         ) : (
-          <>
+          <div className="card-section no-content">
             No locations available. Please add a location to get started.
-          </>
+          </div>
         )}
       </Card>
   );
