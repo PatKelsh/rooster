@@ -16,3 +16,10 @@ export const deleteLocation = async (id: string): Promise<Location | null> => {
     where: { id },
   });
 };
+
+export const updateLocation = async (id: string, data: Prisma.LocationUpdateInput): Promise<Location | null> => {
+  return await db.location.update({
+    where: { id },
+    data,
+  });
+};

@@ -1,6 +1,8 @@
 import { ChangeEvent, useState } from "react";
+import SaveIcon from '@mui/icons-material/Save';
 import TextField from "@/components/.ui/TextField";
 import Select from "@/components/.ui/Select";
+import Button from "../.ui/Button";
 
 interface LocationFormData {
   name: string;
@@ -10,10 +12,17 @@ interface LocationFormData {
 
 interface LocationFormProps {
   initialData?: LocationFormData;
+  editMode?: boolean;
+  setEditLocationId?: (id: string | null) => void;
   onChange?: (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
 }
 
-const LocationForm = ({ initialData, onChange }: LocationFormProps) => {
+const LocationForm = ({
+  initialData,
+  editMode = false,
+  setEditLocationId,
+  onChange
+}: LocationFormProps) => {
   const [formData, setFormData] = useState<LocationFormData>({
     name: initialData?.name || "",
     type: initialData?.type || "Indoor",
@@ -42,32 +51,54 @@ const LocationForm = ({ initialData, onChange }: LocationFormProps) => {
     }
   }
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    if (!editMode) return;
+    event.preventDefault();
+    // Handle form submission logic here
+    console.log("Form submitted:", formData);
+  };
+
   return (
-    <form id="location-form">
-      <div className="form-row-two-thirds">
+    <div className="form-container">
+      <form id="location-form">
+        <div className="form-row-two-thirds">
+          <TextField
+            label="Space Name"
+            name="name"
+            type="text"
+            initialValue={formData.name}
+            onChange={handleInputChange}
+            formHelperText
+          />
+          <Select
+            label="Location Type"
+            options={["Indoor", "Outdoor", "Online"]}
+            value={formData.type}
+            onChange={handleSelectChange}
+            formHelperText
+          />
+        </div>
         <TextField
-          label="Space Name"
-          name="name"
+          label="Notes • optional"
+          name="notes"
           type="text"
+          initialValue={formData.notes}
           onChange={handleInputChange}
           formHelperText
         />
-        <Select
-          label="Location Type"
-          options={["Indoor", "Outdoor", "Online"]}
-          value={formData.type}
-          onChange={handleSelectChange}
-          formHelperText
-        />
-      </div>
-      <TextField
-        label="Notes • optional"
-        name="notes"
-        type="text"
-        onChange={handleInputChange}
-        formHelperText
-      />
-    </form>
+        {editMode && (
+          <div className="form-actions">
+            <Button handleSubmit={() => console.log("Submit form data:", formData)} className="w-icon">
+              <SaveIcon />
+              Save
+            </Button>
+            <Button onClick={() => setEditLocationId && setEditLocationId(null)} className="transparent">
+              Cancel
+            </Button>
+          </div>
+        )}
+      </form>
+    </div>
   );
 };
 

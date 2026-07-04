@@ -10,11 +10,12 @@ import BorderColorIcon from '@mui/icons-material/BorderColor';
 
 import Button from "@/components/.ui/Button";
 import DeleteLocationBtn from "@/components/DeleteLocationBtn";
+import LocationForm from "@/components/forms/location";
 
 interface LocationProps {
   id: string;
   name: string;
-  type: string;
+  type: "Indoor" | "Outdoor" | "Online";
   notes?: string;
 }
 
@@ -70,7 +71,11 @@ const AddLocationCard = () => {
             <div key={index} className={`card-section ${isLocationBeingEdited(location.id) ? "editing" : ""}`}>
               {isLocationBeingEdited(location.id) ? (
                 <>
-                  Form to edit location with id: {location.id} goes here. This is a placeholder for the edit form.
+                  <LocationForm
+                    initialData={location}
+                    editMode={true}
+                    setEditLocationId={setEditLocationId}
+                  />
                 </>
               ) : (<>
                 <div className="card-section-content">

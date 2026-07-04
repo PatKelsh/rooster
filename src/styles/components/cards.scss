@@ -94,6 +94,34 @@
 
       &.editing {
         background-color: $card-section-editing-bg;
+
+        .form-container {
+          width: 100%;
+          padding: 0;
+
+          .form-actions {
+            display: flex;
+            justify-content: flex-start;
+            gap: 10px;
+
+            max-width: $xxs;
+
+            .transparent {
+              background-color: transparent;
+              color: $slate-gray;
+              border: 1px solid $slate-gray;
+              opacity: 0.8;
+
+              &:hover {
+                opacity: 1;
+              }
+            }
+          }
+        }
+
+        input, select, .MuiInputBase-root {
+          background-color: $input-bg;
+        }
       }
 
       h3 {

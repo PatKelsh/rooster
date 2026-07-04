@@ -40,7 +40,7 @@ const TextField = ({
   InputLabelProps,
   slotAdornment,
   resetInitialValue = false,
-  formHelperText = false
+  formHelperText = true
 }: TextFieldProps) => {
   const [defaultValue, setDefaultValue] = useState(initialValue);
 
