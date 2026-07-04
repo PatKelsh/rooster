@@ -4,13 +4,19 @@ import { Dispatch, SetStateAction, SubmitEvent, useState } from "react";
 import AddIcon from '@mui/icons-material/Add';
 import Button from "@/components/.ui/Button";
 import ModalComponent from "@/components/.ui/Modal";
-import Select from "@/components/.ui/Select";
-import TextField from "@/components/.ui/TextField";
+
+import LocationForm from "@/components/forms/location";
+
+interface LocationFormData {
+  name: string;
+  type: "Indoor" | "Outdoor" | "Online";
+  notes?: string;
+}
 
 
 const AddLocationModal = ({ setIsLoading }: { setIsLoading: Dispatch<SetStateAction<boolean>> }) => {
   const [closeOnAction, setCloseOnAction] = useState(false);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<LocationFormData>({
     name: "",
     type: "Indoor",
     notes: "",
@@ -73,7 +79,8 @@ const AddLocationModal = ({ setIsLoading }: { setIsLoading: Dispatch<SetStateAct
       closeOnAction={closeOnAction}
     >
       <div className="form-container modal-form">
-        <form id="location-form">
+        <LocationForm onChange={handleInputChange} initialData={formData} />
+        {/* <form id="location-form">
           <div className="form-row-two-thirds">
             <TextField
               label="Space Name"
@@ -100,7 +107,7 @@ const AddLocationModal = ({ setIsLoading }: { setIsLoading: Dispatch<SetStateAct
             onChange={handleInputChange}
             formHelperText
           />
-        </form>
+        </form> */}
       </div>
     </ModalComponent>
   )

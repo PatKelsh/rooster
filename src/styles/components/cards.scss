@@ -92,6 +92,10 @@
         justify-content: center;
       }
 
+      &.editing {
+        background-color: $card-section-editing-bg;
+      }
+
       h3 {
         font-family: 'Roboto', sans-serif;
         font-size: 0.9rem;

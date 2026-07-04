@@ -21,6 +21,8 @@ interface LocationProps {
 const AddLocationCard = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [locations, setLocations] = useState<LocationProps[]>([]);
+  const [editLocationId, setEditLocationId] = useState<string | null>(null);
+  
   
   useEffect(() => {
     const fetchLocations = async () => {
@@ -52,6 +54,10 @@ const AddLocationCard = () => {
     }
   };
 
+  const isLocationBeingEdited = (id: string) => {
+    return editLocationId === id;
+  }
+
   return (
       <Card
         title="Studio & Spaces"
@@ -61,35 +67,41 @@ const AddLocationCard = () => {
       >
         {locations.length > 0 ? (
           locations.map((location: LocationProps, index: number) => (
-            <div key={index} className="card-section">
-              <div className="card-section-content">
-                <div className={`card-section-icon ${location.type.toLowerCase()} location-type-icon-container`}>
-                  {locationIcon(location.type)}
-                </div>
-                <div>
-                  <div className="card-section-title">
-                    <h3>{location.name}</h3>
-                    <div className="card-section-labels">
-                      <span className={`card-section-label ${location.type.toLowerCase()}`}>
-                        {location.type}
-                      </span>
-                    </div>
+            <div key={index} className={`card-section ${isLocationBeingEdited(location.id) ? "editing" : ""}`}>
+              {isLocationBeingEdited(location.id) ? (
+                <>
+                  Form to edit location with id: {location.id} goes here. This is a placeholder for the edit form.
+                </>
+              ) : (<>
+                <div className="card-section-content">
+                  <div className={`card-section-icon ${location.type.toLowerCase()} location-type-icon-container`}>
+                    {locationIcon(location.type)}
                   </div>
-                  {location.notes && (
-                    <div className="card-section-notes">
-                      {location.notes}
+                  <div>
+                    <div className="card-section-title">
+                      <h3>{location.name}</h3>
+                      <div className="card-section-labels">
+                        <span className={`card-section-label ${location.type.toLowerCase()}`}>
+                          {location.type}
+                        </span>
+                      </div>
                     </div>
-                  )}
+                    {location.notes && (
+                      <div className="card-section-notes">
+                        {location.notes}
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-              <div className="reveal">
-                <div className="action-buttons">
-                  <Button className="icon x-small transparent no-border">
-                    <BorderColorIcon />
-                  </Button>
-                  <DeleteLocationBtn id={location.id} setIsLoading={setIsLoading} />
+                <div className="reveal">
+                  <div className="action-buttons">
+                    <Button className="icon x-small transparent no-border" onClick={() => setEditLocationId(location.id)}>
+                      <BorderColorIcon />
+                    </Button>
+                    <DeleteLocationBtn id={location.id} setIsLoading={setIsLoading} />
+                  </div>
                 </div>
-              </div>
+              </>)}
             </div> 
           ))
         ) : (
