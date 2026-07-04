@@ -8,7 +8,10 @@ import PaletteOutlinedIcon from '@mui/icons-material/PaletteOutlined';
 
 const AdminSettingsMainPage = () => {
   return (
-    <div>
+    <div className="admin-dash-page-container">
+      <div className="admin-page-header">
+        <h1>Settings</h1>
+      </div>
       <StudioIdentityCard />
       <Card
         title="Contact & Location"

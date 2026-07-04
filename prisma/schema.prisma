@@ -52,7 +52,7 @@ model ClassTermDetails {
   price                   Float
   capacity                Int
   locationId              String
-  location                Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  location                Location? @relation(fields: [locationId], references: [id])
   termSpecificDescription String?
   // teachers                ClassTeacherProfile[] @relation("ClassTermTeachers")
   classInstances          ClassInstance[]
