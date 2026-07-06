@@ -168,3 +168,17 @@
     }
   }
 }
+
+@media (max-width: $md) {
+
+  .logged-in-links {
+    max-width: 100px;
+  }
+
+  .short-mobile-btn {
+    max-width: 40px;
+    svg {
+      margin: 0 5px;
+    }
+  }
+}

@@ -15,7 +15,7 @@ const SignOutBtn = () => {
 
   return (
     <Button onClick={handleSignOut} className="w-icon sign-out-btn">
-      <Logout /> Sign Out
+      <Logout /> <span className="hide-for-mobile">Sign Out</span>
     </Button>
   )
 }

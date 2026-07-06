@@ -6,10 +6,12 @@
 .session-list-item-container {
   background-color: $list-item-bg;
   border: 1px solid $list-item-border-color;
-  border-radius: 10px;
+  border-radius: $list-item-border-radius;
   color: $slate-gray;
   display: flex;
   flex-direction: row;
+  font-size: .8rem;
+  letter-spacing: 0.5px;
   justify-content: space-between;
 
   .list-item-header {
@@ -26,9 +28,68 @@
       flex-direction: column;
       justify-content: center;
       font-weight: bold;
-      margin: auto 0;
+      margin: auto 5px;
       padding: 5px 10px;
       min-height: 32px;
+      text-align: center;
+    }
+
+    .list-item-info {
+      display: flex;
+      flex-direction: column;
+      margin: auto 0;
+      padding: 10px;
+
+      .list-item-link {
+        text-decoration: none !important;
+        h3 {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          font-weight: 600;
+          margin: 0;
+          text-decoration: none !important;
+          &:hover {
+            color: $list-item-link-hover-color;
+          }
+        }
+        &:hover {
+          color: $list-item-link-hover-color;
+        }
+      }
+
+      .list-item-dates {
+        margin: 5px 0;
+        opacity: 0.9;
+      }
+
+      .list-item-name {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 20px;
+      }
+    }
+  }
+
+  .list-item-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+    a, a:visited {
+      border-top-right-radius: $list-item-border-radius;
+      border-bottom-right-radius: $list-item-border-radius;
+      color: $list-item-link-color;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: 0 20px;
+
+      &:hover {
+        background-color: $list-item-link-hover-bg;
+        color: $list-item-link-hover-color;
+      }
     }
   }
 }

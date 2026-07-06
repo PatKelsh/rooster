@@ -15,7 +15,7 @@ import AccordionActions from '@mui/material/AccordionActions';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import { dateFormat } from "@/helpers/dateFormatting";
-import Button from "@/components/.ui/Button";
+import Link from "next/link";
 
 const AdminSessionsMainPage = () => {
   const [termList, setTermList] = useState<TermProps[]>([]);
@@ -26,9 +26,14 @@ const AdminSessionsMainPage = () => {
     if (isLoading) fetchTerms(setError, setIsLoading, setTermList);
   }, [isLoading]);
 
-  const tagText = (status: string) => {
+  const pillText = (status: string) => {
     const text = status.at(0) + status.slice(1).toLowerCase();
     return text;
+  }
+
+  const linkName = (name: string) => {
+    const formattedName = name.replace(/\s+/g, '-').toLowerCase();
+    return formattedName;
   }
 
   return (
@@ -51,24 +56,30 @@ const AdminSessionsMainPage = () => {
               <div key={term.id} className={`session-list-item-container`}>
                 <div className="list-item-header">
                   <div className="week-count">
-                    {term.weeks}w
+                    {term.weeks}<br />wk{term.weeks > 1 ? "s" : ""}
                   </div>
-                  <div>
-                    <div>
-                      {term.name}
+                  <div className="list-item-info">
+                    <div className="list-item-name">
+                      <Link className="list-item-link" href={`/admin/session?name=${linkName(term.name)}&date=${term.startDate}`}>
+                        <h3>{term.name}</h3>
+                      </Link>
+                      <div className={`pill ${term.status.toLowerCase()}`}>{pillText(term.status)}</div>
                     </div>
-                    <div>
-                      <p>{dateFormat(term.startDate)} - {dateFormat(term.endDate)}</p>
+                    <div className="list-item-dates">
+                      {dateFormat(term.startDate)} - {dateFormat(term.endDate)}
+                    </div>
+                    <div className="list-item-class-count">
+                      # classes
                     </div>
                   </div>
                 </div>
                 <div>
                   <div>
                   </div>
-                  <div>
-                    <Button>
+                  <div className="list-item-actions">
+                    <Link className="list-item-btn" href={`/admin/session?name=${linkName(term.name)}&date=${term.startDate}`}>
                       <ArrowForwardIosIcon />
-                    </Button>
+                    </Link>
                   </div>
                 </div>
               </div>

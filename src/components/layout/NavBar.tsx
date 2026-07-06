@@ -62,8 +62,8 @@ const NavBar = () => {
             <div className="logged-in-links">
               {user?.role != "USER" && pathname.includes("/admin") && (
                 <div className="dashboard-link-container">
-                  <Link href="/" className="dashboard-link">
-                    <AccountCircleIcon /> Student Dashboard
+                  <Link href="/" className="dashboard-link short-mobile-btn">
+                    <AccountCircleIcon /> <span className="hide-for-mobile">Student Dashboard</span>
                   </Link>
                 </div>
               )}
