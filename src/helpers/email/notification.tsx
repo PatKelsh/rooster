@@ -1,7 +1,6 @@
-const nodemailer = require("nodemailer");
-
-import { NextResponse, NextRequest } from "next/server";
+import nodemailer from "nodemailer";
 import { getUserById } from "@/lib/prisma/user";
+import { logger } from "@/helpers/logger";
 
 // Create a transporter using SMTP
 const transporter = nodemailer.createTransport({
@@ -20,7 +19,7 @@ export async function sendNotificationEmail(users: Array<string>, subjectLine: s
 		for (const user of users) {
 			const userInfo = await getUserById(user);
 			if (!userInfo) {
-				console.log('No user ID found for user %s', user);
+				logger.info('No user ID found for user %s', user);
 				continue;
 			}
 			const info = await transporter.sendMail({
@@ -30,10 +29,10 @@ export async function sendNotificationEmail(users: Array<string>, subjectLine: s
 				html: emailText
 			});
 
-		console.log("Message sent: %s", info.messageId);
+		logger.info("Message sent: %s", info.messageId);
 		}
 	} catch (err) {
-		console.error('Error while sending mail:', err);
+		logger.error('Error while sending mail:', err);
 		throw err
 	};
 }
