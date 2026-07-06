@@ -1,7 +1,6 @@
 @use './.resources/colors.scss' as *;
 @use './.resources/screen-sizes.scss' as *;
 
-@forward './components/accordion.scss';
 @forward './components/admin-dash.scss';
 @forward './components/buttons.scss';
 @forward './components/cards.scss';
@@ -10,6 +9,7 @@
 @forward './components/links.scss';
 @forward './components/modal.scss';
 @forward './components/navbar.scss';
+@forward './components/sessions.scss';
 @forward './components/stat-boxes.scss';
 @forward './components/tables.scss';
 
@@ -64,4 +64,10 @@ ul {
   background-color: $navbar-color;
   position: relative; 
   top:0%;
+}
+
+@media (max-width: $md) {
+  .hide-for-mobile {
+    display: none;
+  }
 }

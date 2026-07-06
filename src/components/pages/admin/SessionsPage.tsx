@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { TermProps } from "@/lib/props";
 import { fetchTerms } from "@/lib/api/term";
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import DeleteItemModal from "@/components/modals/DeleteItem";
 import AddSessionModal from "@/components/modals/AddSession";
 
@@ -13,6 +14,8 @@ import Typography from '@mui/material/Typography';
 import AccordionActions from '@mui/material/AccordionActions';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
+import { dateFormat } from "@/helpers/dateFormatting";
+import Button from "@/components/.ui/Button";
 
 const AdminSessionsMainPage = () => {
   const [termList, setTermList] = useState<TermProps[]>([]);
@@ -23,13 +26,9 @@ const AdminSessionsMainPage = () => {
     if (isLoading) fetchTerms(setError, setIsLoading, setTermList);
   }, [isLoading]);
 
-  const dateFormatter = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
-      // year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
+  const tagText = (status: string) => {
+    const text = status.at(0) + status.slice(1).toLowerCase();
+    return text;
   }
 
   return (
@@ -39,7 +38,8 @@ const AdminSessionsMainPage = () => {
       </div>
       <div className="admin-page-subheader">
         <div>
-        </div>
+          {(termList.length > 1 || termList.length === 0) ? <p>{termList.length} sessions</p> : <p>{termList.length} session</p>}
+        </div>  
         <div>
           <AddSessionModal setIsLoading={setIsLoading} />
         </div>
@@ -48,38 +48,29 @@ const AdminSessionsMainPage = () => {
         {termList.length > 0 ? (
           <>
             {termList.map((term) => (
-              <div key={term.id} className="accordion-container">
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls={`${term.id}-panel1-content`}
-                    id={`${term.id}-panel1-header`}
-                    className="session-accordion-header accordion-card"
-                  >
-                    <div className="session-info">
-                      <div className="week-count">
-                        {term.weeks}w
-                      </div>
-                      <div className="session-content">
-                        <h3>{term.name}</h3>
-                        <div>
-                          {dateFormatter(term.startDate)} - {dateFormatter(term.endDate)}
-                        </div>
-                        {/* TODO: return class count */}
-                        <div className="session-detail">
-                          # classes
-                        </div>
-                      </div>
+              <div key={term.id} className={`session-list-item-container`}>
+                <div className="list-item-header">
+                  <div className="week-count">
+                    {term.weeks}w
+                  </div>
+                  <div>
+                    <div>
+                      {term.name}
                     </div>
                     <div>
-                      {term.status}
+                      <p>{dateFormat(term.startDate)} - {dateFormat(term.endDate)}</p>
                     </div>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                    malesuada lacus ex, sit amet blandit leo lobortis eget.
-                  </AccordionDetails>
-                </Accordion>
+                  </div>
+                </div>
+                <div>
+                  <div>
+                  </div>
+                  <div>
+                    <Button>
+                      <ArrowForwardIosIcon />
+                    </Button>
+                  </div>
+                </div>
               </div>
             ))}
           </>

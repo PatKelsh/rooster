@@ -8,9 +8,10 @@ interface DeleteItemModalProps {
   itemId: string;
   type: "session" | "class";
   name?: string;
+  setIsLoading?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const DeleteItemModal = ({ itemId, type, name }: DeleteItemModalProps) => {
+const DeleteItemModal = ({ itemId, type, name, setIsLoading }: DeleteItemModalProps) => {
   const router = useRouter();
 
   const itemType = type === "session" ? "term" : type;
@@ -24,12 +25,12 @@ const DeleteItemModal = ({ itemId, type, name }: DeleteItemModalProps) => {
         },
       });
 
-      if (response.ok) {
-        router.push(`/admin/${type}s`);
-      } else {
+      if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || `Failed to delete ${type}`);
       }
+
+      if (setIsLoading) setIsLoading(true);
     } catch (error) {
       console.log(`Error deleting ${type}:`, error);
     }

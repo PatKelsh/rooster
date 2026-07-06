@@ -26,7 +26,7 @@ const AddSessionModal = ({ setIsLoading }: AddSessionModalProps) => {
     }, 500);
   }
 
-  const addSessionBtn = <><AddIcon /> New Session</>;
+  const addSessionBtn = <><AddIcon /> New <span className="hide-for-mobile">Session</span></>;
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = event.target;
@@ -43,6 +43,7 @@ const AddSessionModal = ({ setIsLoading }: AddSessionModalProps) => {
   };
 
   const convertWeeksToEndDate = (startDate?: string, weeks?: number) => {
+    if (!startDate || !formData.startDate) return;
     const start = new Date(startDate || formData.startDate);
     const durationInWeeks = weeks || formData.weeks;
     if (isNaN(durationInWeeks)) {

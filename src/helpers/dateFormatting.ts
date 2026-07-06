@@ -1,5 +1,8 @@
 export const dateFormat = (dateString: string) => {
-  const date = dateString.split("T")[0].split("-");
-
-  return `${date[1]}/${date[2]}/${date[0]}`
+    const date = new Date(dateString);
+    const dateOneDayAhead = new Date(date.getTime() + 24 * 60 * 60 * 1000); // Add one day in milliseconds
+    return dateOneDayAhead.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+    });
 }
