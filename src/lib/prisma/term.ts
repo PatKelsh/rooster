@@ -37,6 +37,16 @@ export const getAllTerms = async (): Promise<Term[]> => {
   });
 };
 
+export const getTermByNameAndDate = async (name: string, date: string): Promise<Term | null> => {
+  console.log({ name, date });
+  return await db.term.findFirst({
+    where: {
+      name,
+      startDate: date,
+    },
+  });
+};
+
 // export const getLiveTerms = async (): Promise<Omit<Term, "createdAt" | "updatedAt" | "description">[]> => {
 //   return await db.term.findMany({
 //     where: {
