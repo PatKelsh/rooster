@@ -56,7 +56,7 @@ const AdminSessionsMainPage = () => {
               <div key={term.id} className={`session-list-item-container`}>
                 <div className="list-item-header">
                   <div className="week-count">
-                    {term.weeks}<br />wk{term.weeks > 1 ? "s" : ""}
+                    <span className="week-count-number">{term.weeks}</span><br />wk{term.weeks > 1 ? "s" : ""}
                   </div>
                   <div className="list-item-info">
                     <div className="list-item-name">
