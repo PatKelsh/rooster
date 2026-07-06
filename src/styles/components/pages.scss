@@ -1,0 +1,27 @@
+@use '../.resources/colors.scss' as *;
+@use '../.resources/screen-sizes.scss' as *;
+
+.admin-dash-page-container {
+  .back-link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 20px;
+    color: $back-link-color;
+    font-size: 0.9rem;
+    text-decoration: none;
+
+    .back-arrow {
+      font-size: 1.2rem;
+      color: $back-link-color;
+    }
+
+    &:hover {
+      color: $back-link-hover-color;
+
+      .back-arrow {
+        color: $back-link-hover-color;
+      }
+    }
+  }
+}
