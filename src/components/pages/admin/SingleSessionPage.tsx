@@ -2,14 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { TermProps } from "@/lib/props";
-import { usePathname } from "next/navigation";
-import { fetchClasses } from "@/lib/api/class";
-import { Add, DriveFileRenameOutlineOutlined, ImportExport } from "@mui/icons-material";
+import { Add, Adjust } from "@mui/icons-material";
 import Button from "@/components/.ui/Button";
 import { dateFormat, titleCaseFormat } from "@/helpers/formatting";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Link from "next/link";
 import DeleteItemModal from "@/components/modals/DeleteItem";
+import EditSessionModal from "@/components/modals/EditSession";
 
 const SingleSessionPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -72,20 +71,25 @@ const SingleSessionPage = () => {
                 </div>
               </div>
             </div>
-            <div className="admin-session-actions">
-              <div>
-                <DeleteItemModal
-                  itemId={session.id}
-                  type="session"
-                  name={session.name}
-                  setIsLoading={setIsLoading}
-                  btnStyle="forCard"
-                />
-              </div>
-              <div>
-                <Button className="transparent no-border card-action-btn">
-                  <DriveFileRenameOutlineOutlined /> Edit Session
+            <div>
+              <div className="status-btn-container">
+                <Button className="status-btn">
+                  <Adjust />Go Live
                 </Button>
+              </div>
+              <div className="admin-session-actions">
+                <div>
+                  <DeleteItemModal
+                    itemId={session.id}
+                    type="session"
+                    name={session.name}
+                    setIsLoading={setIsLoading}
+                    btnStyle="forCard"
+                  />
+                </div>
+                <div>
+                  <EditSessionModal setIsLoading={setIsLoading} session={session} />
+                </div>
               </div>
             </div>
           </div>

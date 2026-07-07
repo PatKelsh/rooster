@@ -1,5 +1,6 @@
 
 import { useRouter } from "next/navigation";
+import { titleCaseFormat } from "@/helpers/formatting";
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import ModalComponent from "@/components/.ui/Modal";
 import Button from "@/components/.ui/Button";
@@ -86,8 +87,8 @@ const DeleteItemModal = ({
       btnAction={confirmDelete()}
     >
       <div>
-        <p>Are you sure you want to delete {name ? (<>the {type}: <strong>{name}</strong></>) : `this ${type}`}?</p>
-          <p>If deleted, this action cannot be undone and will erase all associated data.</p>
+        <p>Are you sure you want to delete {name ? (<>the {type}: <strong>{titleCaseFormat(name)}</strong></>) : `this ${type}`}?</p>
+        <p>If deleted, this action cannot be undone and will erase all associated data.</p>
       </div>
     </ModalComponent>
   );

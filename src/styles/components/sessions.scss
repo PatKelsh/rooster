@@ -11,12 +11,6 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
-
-  .admin-session-actions {
-    border-top: 1px solid $table-border-color;
-    margin-top: 20px;
-    padding-top: 10px;
-  }
 }
 
 .admin-session-header {
@@ -76,6 +70,7 @@
   flex-direction: row;
   justify-content: space-between;
   gap: 10px;
+  padding-top: 20px;
 
   button {
     display: flex;
@@ -85,23 +80,45 @@
 
   .card-action-btn {
     color: $card-action-btn-color;
-    border-bottom: 1px solid $light-vanilla-custard;
+    border-bottom: 1px solid $light-vanilla-custard !important;
     padding: 5px;
 
     &:hover {
       background-color: transparent;
       border-radius: 0;
-      border-bottom: 1px solid $dark-teal;
+      border-bottom: 1px solid $dark-teal !important;
       color: $dark-teal;
     }
 
     &.danger {
       &:hover {
-        border-bottom: 1px solid $brown-red;
+        border-bottom: 1px solid $brown-red !important;
         color: $brown-red;
       }
     }
+  }
+}
 
+.status-btn-container {
+  border-top: 1px solid $table-border-color;
+  margin-top: 20px;
+  padding-top: 20px;
+
+  .status-btn {
+    background-color: $dark-teal;
+    gap: 5px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    letter-spacing: 1px;
+    opacity: 0.8;
+
+    max-width: 80%;
+    margin: 0 auto;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 }
 
