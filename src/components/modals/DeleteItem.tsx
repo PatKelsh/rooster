@@ -9,9 +9,16 @@ interface DeleteItemModalProps {
   type: "session" | "class";
   name?: string;
   setIsLoading?: React.Dispatch<React.SetStateAction<boolean>>;
+  btnStyle?: "icon" | "forCard";
 }
 
-const DeleteItemModal = ({ itemId, type, name, setIsLoading }: DeleteItemModalProps) => {
+const DeleteItemModal = ({
+  itemId,
+  type,
+  name,
+  setIsLoading,
+  btnStyle = "icon"
+}: DeleteItemModalProps) => {
   const router = useRouter();
 
   const itemType = type === "session" ? "term" : type;
@@ -44,12 +51,38 @@ const DeleteItemModal = ({ itemId, type, name, setIsLoading }: DeleteItemModalPr
     )
   }
 
+  const buttonStyle = () => {
+    switch (btnStyle) {
+      case "icon":
+        return "icon danger reveal";
+      case "forCard":
+        return "transparent no-border card-action-btn";
+      default:
+        return "";
+    }
+  }
+
+  const buttonContent = () => {
+    switch (btnStyle) {
+      case "icon":
+        return <DeleteForeverOutlinedIcon />;
+      case "forCard":
+        return (
+          <>
+            <DeleteForeverOutlinedIcon /> {` Delete ${type}`}
+          </>
+        );
+      default:
+        return "";
+    }
+  }
+
   return (
     <ModalComponent
       ariaTitle="Delete Item"
       ariaDescription="Are you sure you want to delete this item?"
-      modalBtnContent={<DeleteForeverOutlinedIcon />}
-      modalBtnClassName="icon danger reveal"
+      modalBtnContent={buttonContent()}
+      modalBtnClassName={buttonStyle()}
       btnAction={confirmDelete()}
     >
       <div>

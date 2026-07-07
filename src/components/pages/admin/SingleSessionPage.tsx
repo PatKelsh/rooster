@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { TermProps } from "@/lib/props";
 import { usePathname } from "next/navigation";
 import { fetchClasses } from "@/lib/api/class";
-import { Add, DeleteForeverOutlined, ImportExport } from "@mui/icons-material";
+import { Add, DriveFileRenameOutlineOutlined, ImportExport } from "@mui/icons-material";
 import Button from "@/components/.ui/Button";
 import { dateFormat, titleCaseFormat } from "@/helpers/formatting";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -14,7 +14,6 @@ import DeleteItemModal from "@/components/modals/DeleteItem";
 const SingleSessionPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [session, setSession] = useState<TermProps | null>(null);
-  console.log("session", session);
 
   useEffect(() => {
     const fetchSessionData = async () => {
@@ -53,29 +52,54 @@ const SingleSessionPage = () => {
           Whoops! Looks like this session does not exist. Please check the URL and try again.
         </div>
       ) : (
-        <div className="admin-session">
-          <div className="admin-session-header">
-            <div className="admin-session-header-info">
-              <div className="week-counter">
-                <span className="week-count-number">{session?.weeks}</span><br />weeks
+        <>
+          <div className="admin-session">
+            <div className="admin-session-header">
+              <div className="admin-session-header-info">
+                <div className="week-counter">
+                  <span className="week-count-number">{session?.weeks}</span><br />weeks
+                </div>
+                <div>
+                  <h1>{titleCaseFormat(session?.name)}</h1>
+                  <div>
+                    {dateFormat(session?.startDate)} - {dateFormat(session?.endDate)}
+                  </div>
+                </div>
               </div>
               <div>
-                <h1>{titleCaseFormat(session?.name)}</h1>
-                <div>
-                  {dateFormat(session?.startDate)} - {dateFormat(session?.endDate)}
+                <div className={`pill ${session.status.toLowerCase()}`}>
+                  {session.status.at(0) + session.status.slice(1).toLowerCase()}
                 </div>
               </div>
             </div>
-            <div>
-              <div className={`pill ${session.status.toLowerCase()}`}>
-                {session.status.at(0) + session.status.slice(1).toLowerCase()}
+            <div className="admin-session-actions">
+              <div>
+                <DeleteItemModal
+                  itemId={session.id}
+                  type="session"
+                  name={session.name}
+                  setIsLoading={setIsLoading}
+                  btnStyle="forCard"
+                />
+              </div>
+              <div>
+                <Button>
+                  <DriveFileRenameOutlineOutlined /> Edit Session
+                </Button>
               </div>
             </div>
           </div>
-          <div>
-            <DeleteItemModal itemId={session.id} type="session" name={session.name} setIsLoading={setIsLoading} /> 
+          <div className="admin-session-classes-header">
+            <div>
+              <h4>Classes in this Session</h4>
+            </div>
+            <div>
+              <Button>
+                <Add /> Add Class
+              </Button>
+            </div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );
