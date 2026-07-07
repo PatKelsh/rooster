@@ -3,8 +3,46 @@
 
 // Single Session Page
 
+.admin-session {
+  background-color: $card-bg;
+  border: 1px solid $table-border-color;
+  border-radius: $list-item-border-radius;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
 .admin-session-header {
-  background-color: $light-vanilla-custard;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .admin-session-header-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .week-counter {
+    background-color: $week-count-bg;
+    border-radius: 5px;
+    color: $week-count-color;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 10px;
+    padding: 10px;
+    min-height: 32px;
+    text-align: center;
+    line-height: .75rem;
+
+    .week-count-number {
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      font-size: 2rem;
+    }
+  }
 }
 
 // List Item
@@ -38,7 +76,7 @@
       padding: 10px;
       min-height: 32px;
       text-align: center;
-        line-height: .5rem;
+      line-height: .5rem;
 
       .week-count-number {
         font-family: Georgia, 'Times New Roman', Times, serif;

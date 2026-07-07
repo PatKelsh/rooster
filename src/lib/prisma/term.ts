@@ -11,8 +11,14 @@ type FetchTermsResponse = Omit<
 export const createTerm = async (
   data: Prisma.TermCreateInput,
 ): Promise<Term> => {
+  const { name } = data;
+  const linkName = name.replace(/\s+/g, '-').toLowerCase();
+
   return await db.term.create({
-    data,
+    data: {
+      ...data,
+      name: linkName,
+    },
   });
 };
 

@@ -57,16 +57,13 @@ export async function GET(
     const name = searchParams.get("name");
     const date = searchParams.get("date");
 
-    const formattedName = name ? name.replace(/-/g, ' ') : null;
-    const capitalizeName = formattedName ? formattedName.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') : null;
-
-    if (!capitalizeName || !date) {
+    if (!name || !date) {
       return NextResponse.json({ error: "Name and date are required" }, { status: 400 });
     }
 
     // Here you would typically fetch the term based on name and date
     // For demonstration, let's assume we have a function `getTermByNameAndDate`
-    const term = await getTermByNameAndDate(capitalizeName, date);
+    const term = await getTermByNameAndDate(name, date);
 
     if (!term) {
       return NextResponse.json({ error: "Term not found" }, { status: 404 });

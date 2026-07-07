@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography';
 import AccordionActions from '@mui/material/AccordionActions';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
-import { dateFormat } from "@/helpers/dateFormatting";
+import { dateFormat, titleCaseFormat } from "@/helpers/formatting";
 import Link from "next/link";
 
 const AdminSessionsMainPage = () => {
@@ -61,7 +61,7 @@ const AdminSessionsMainPage = () => {
                   <div className="list-item-info">
                     <div className="list-item-name">
                       <Link className="list-item-link" href={`/admin/session?name=${linkName(term.name)}&date=${term.startDate}`}>
-                        <h3>{term.name}</h3>
+                        <h3>{titleCaseFormat(term.name)}</h3>
                       </Link>
                       <div className={`pill ${term.status.toLowerCase()}`}>{pillText(term.status)}</div>
                     </div>

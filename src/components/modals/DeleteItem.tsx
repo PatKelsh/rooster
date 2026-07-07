@@ -18,6 +18,7 @@ const DeleteItemModal = ({ itemId, type, name, setIsLoading }: DeleteItemModalPr
 
   const deleteItem = async () => {
     try {
+      if (setIsLoading) setIsLoading(true);
       const response = await fetch(`/api/admin/${itemType}?id=${itemId}`, {
         method: 'DELETE',
         headers: {
@@ -29,11 +30,10 @@ const DeleteItemModal = ({ itemId, type, name, setIsLoading }: DeleteItemModalPr
         const errorData = await response.json();
         throw new Error(errorData.error || `Failed to delete ${type}`);
       }
-
-      if (setIsLoading) setIsLoading(true);
     } catch (error) {
       console.log(`Error deleting ${type}:`, error);
     }
+    router.push(`/admin/${type}s`);
   }
 
   const confirmDelete = () => {
