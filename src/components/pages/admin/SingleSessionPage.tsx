@@ -83,7 +83,7 @@ const SingleSessionPage = () => {
                 />
               </div>
               <div>
-                <Button>
+                <Button className="transparent no-border card-action-btn">
                   <DriveFileRenameOutlineOutlined /> Edit Session
                 </Button>
               </div>

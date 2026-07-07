@@ -83,14 +83,23 @@
 
   .card-action-btn {
     color: $card-action-btn-color;
+    border-bottom: 1px solid $light-vanilla-custard;
     padding: 5px;
 
     &:hover {
       background-color: transparent;
-      border-bottom: 1px solid $brown-red;
       border-radius: 0;
-      color: $brown-red;
+      border-bottom: 1px solid $dark-teal;
+      color: $dark-teal;
     }
+
+    &.danger {
+      &:hover {
+        border-bottom: 1px solid $brown-red;
+        color: $brown-red;
+      }
+    }
+
   }
 }
 

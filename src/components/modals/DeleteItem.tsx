@@ -56,7 +56,7 @@ const DeleteItemModal = ({
       case "icon":
         return "icon danger reveal";
       case "forCard":
-        return "transparent no-border card-action-btn";
+        return "transparent no-border danger card-action-btn";
       default:
         return "";
     }
