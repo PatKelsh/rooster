@@ -17,12 +17,11 @@ const SingleSessionPage = () => {
   useEffect(() => {
     const fetchSessionData = async () => {
       const searchParams = new URLSearchParams(window.location.search);
-      const sessionName = searchParams.get("name");
-      const sessionDate = searchParams.get("date");
+      const sessionId = searchParams.get("id");
 
-      if (sessionName && sessionDate) {
+      if (sessionId) {
         try {
-          const response = await fetch(`/api/admin/term?name=${sessionName}&date=${sessionDate}`);
+          const response = await fetch(`/api/admin/term?id=${sessionId}`);
           if (!response.ok) throw new Error("Failed to fetch session data.");
           const data = await response.json();
           setSession(data);
@@ -70,6 +69,9 @@ const SingleSessionPage = () => {
                   {session.status.at(0) + session.status.slice(1).toLowerCase()}
                 </div>
               </div>
+            </div>
+            <div className="session-description">
+              {session.description}
             </div>
             <div>
               <div className="status-btn-container">

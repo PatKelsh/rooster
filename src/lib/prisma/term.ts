@@ -44,7 +44,6 @@ export const getAllTerms = async (): Promise<Term[]> => {
 };
 
 export const getTermByNameAndDate = async (name: string, date: string): Promise<Term | null> => {
-  console.log({ name, date });
   return await db.term.findFirst({
     where: {
       name,
@@ -85,12 +84,21 @@ export const updateTermById = async (
   id: string,
   data: UpdateTermWithoutStatus,
 ): Promise<Term> => {
-  return await db.term.update({
+  const findTerm = await getTermById(id);
+  if (!findTerm) {
+    throw new Error("Term not found");
+  }
+
+  const updatedTerm = await db.term.update({
     where: {
       id,
     },
-    data,
+    data: {
+      ...data,
+    },
   });
+
+  return updatedTerm;
 };
 
 export const updateTermStatus = async (

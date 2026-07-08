@@ -11,6 +11,11 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
+
+  .session-description {
+    color: $list-item-font-color;
+    padding-top: 20px;
+  }
 }
 
 .admin-session-header {

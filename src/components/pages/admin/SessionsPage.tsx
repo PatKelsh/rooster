@@ -60,7 +60,7 @@ const AdminSessionsMainPage = () => {
                   </div>
                   <div className="list-item-info">
                     <div className="list-item-name">
-                      <Link className="list-item-link" href={`/admin/session?name=${linkName(term.name)}&date=${term.startDate}`}>
+                      <Link className="list-item-link" href={`/admin/session?id=${term.id}`}>
                         <h3>{titleCaseFormat(term.name)}</h3>
                       </Link>
                       <div className={`pill ${term.status.toLowerCase()}`}>{pillText(term.status)}</div>
@@ -77,7 +77,7 @@ const AdminSessionsMainPage = () => {
                   <div>
                   </div>
                   <div className="list-item-actions">
-                    <Link className="list-item-btn" href={`/admin/session?name=${linkName(term.name)}&date=${term.startDate}`}>
+                    <Link className="list-item-btn" href={`/admin/session?id=${term.id}`}>
                       <ArrowForwardIosIcon />
                     </Link>
                   </div>

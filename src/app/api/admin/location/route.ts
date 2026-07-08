@@ -6,7 +6,6 @@ export async function POST(
 ) {
   try {
     const data = await request.json();
-    console.log("Received data:", data);
 
     if (!data.name || !data.type) {
       return NextResponse.json({ error: "Name and type are required" }, { status: 400 });

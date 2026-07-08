@@ -4,6 +4,7 @@ import { Dispatch, SetStateAction, SubmitEvent, useState } from "react";
 import { DriveFileRenameOutlineOutlined } from '@mui/icons-material';
 import { TermProps } from "@/lib/props";
 import { titleCaseFormat } from "@/helpers/formatting";
+import { updateTermById } from "@/lib/api/term";
 import Button from "@/components/.ui/Button";
 import ModalComponent from "@/components/.ui/Modal";
 import TextField from "@/components/.ui/TextField";
@@ -22,6 +23,8 @@ const EditSessionModal = ({ setIsLoading, session }: EditSessionModalProps) => {
     weeks: session.weeks,
     description: session.description,
   });
+  const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
   const resetCloseOnAction = () => {
     setTimeout(() => {
@@ -67,16 +70,10 @@ const EditSessionModal = ({ setIsLoading, session }: EditSessionModalProps) => {
     event.preventDefault();
     try {
       setIsLoading(true);
-      const response = await fetch("/api/admin/term", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await updateTermById(session.id, formData, setError, setSubmitting);
 
-      if (!response.ok) {
-        const errorData = await response.json();
+      if (!response?.ok) {
+        const errorData = await response?.json();
         throw new Error(errorData.error || "failed to edit session");
       }
 
