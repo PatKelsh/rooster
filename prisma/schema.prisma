@@ -70,6 +70,7 @@ model ClassInstance {
   dayOfTheWeek        String
   startTime           String
   endTime             String
+  daysOfTheWeek       String[]
   // roster             RosterItem[]
   classTermDetails    ClassTermDetails @relation(fields: [classTermDetailsId], references: [id], onDelete: Cascade)
   createdAt           DateTime         @default(now())

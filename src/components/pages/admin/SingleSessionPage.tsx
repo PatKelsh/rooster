@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { TermProps } from "@/lib/props";
-import { Add, Adjust } from "@mui/icons-material";
+import { Adjust } from "@mui/icons-material";
 import Button from "@/components/.ui/Button";
 import { dateFormat, titleCaseFormat } from "@/helpers/formatting";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Link from "next/link";
 import DeleteItemModal from "@/components/modals/DeleteItem";
 import EditSessionModal from "@/components/modals/EditSession";
+import SessionClasses from "@/components/content/SessionClasses";
 
 const SingleSessionPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -95,16 +96,7 @@ const SingleSessionPage = () => {
               </div>
             </div>
           </div>
-          <div className="admin-session-classes-header">
-            <div>
-              <h4>Classes in this Session</h4>
-            </div>
-            <div>
-              <Button>
-                <Add /> Add Class
-              </Button>
-            </div>
-          </div>
+          <SessionClasses sessionId={session.id} sessionName={session.name} />
         </>
       )}
     </div>
