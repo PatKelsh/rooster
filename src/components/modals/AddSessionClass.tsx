@@ -122,6 +122,14 @@ const AddSessionClassModal = ({
 
   const modalHeader = <h2>Add Class to {sessionName || "Session"}</h2>
 
+  const submitBtn = () => {
+    return (
+      <Button>
+        Add Class
+      </Button>
+    );
+  };
+
   return (
     <>
       <ModalComponent
@@ -130,6 +138,7 @@ const AddSessionClassModal = ({
         ariaDescription="Modal for adding a new class to the session"
         modalHeader={modalHeader}
         modalBtnClassName="w-icon small"
+        btnAction={submitBtn()}
         closeOnAction={closeOnAction}
       >
         <div className="form-container">
