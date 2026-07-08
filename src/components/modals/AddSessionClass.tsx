@@ -1,11 +1,22 @@
 "use client";
 
 import { Dispatch, SetStateAction, SubmitEvent, useEffect, useState } from "react";
-import { Add, AttachMoney } from '@mui/icons-material';
+import { Add, AttachMoney, Clear } from '@mui/icons-material';
+import { FormHelperText } from "@mui/material";
 import Autocomplete from "@/components/.ui/Autocomplete";
 import ModalComponent from "@/components/.ui/Modal";
 import TextField from "@/components/.ui/TextField";
 import Button from "@/components/.ui/Button";
+
+const daysOfTheWeek = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday"
+];
 
 interface AddSessionClassModalProps {
   setIsLoading: Dispatch<SetStateAction<boolean>>;
@@ -29,7 +40,7 @@ const AddSessionClassModal = ({
     capacity: 0,
     termSpecificDescription: "",
     classInstances: [{
-      dayOfTheWeek: "",
+      daysOfTheWeek: [] as string[],
       startTime: "",
       endTime: "",
     }],
@@ -82,7 +93,7 @@ const AddSessionClassModal = ({
     e.preventDefault();
     setFormData(prev => prev ? {
       ...prev,
-      classInstances: [...prev.classInstances, { dayOfTheWeek: "", startTime: "", endTime: "" }]
+      classInstances: [...prev.classInstances, { daysOfTheWeek: [], startTime: "", endTime: "" }]
     } : prev);
   };
 
@@ -90,6 +101,21 @@ const AddSessionClassModal = ({
     e.preventDefault();
     const updatedInstances = formData.classInstances.filter((_, i) => i !== index);
     setFormData(prev => prev ? { ...prev, classInstances: updatedInstances } : prev);
+  };
+
+  const handleDayToggle = (index: number, dayId: string) => {
+    setFormData(prev => {
+      if (!prev) return prev;
+      const updatedInstances = [...prev.classInstances];
+      const currentDays = updatedInstances[index].daysOfTheWeek as string[];
+      updatedInstances[index] = {
+        ...updatedInstances[index],
+        daysOfTheWeek: currentDays.includes(dayId)
+          ? currentDays.filter(d => d !== dayId)
+          : [...currentDays, dayId]
+      };
+      return { ...prev, classInstances: updatedInstances };
+    });
   };
 
   const addSessionBtn = <><Add /> Add <span className="hide-for-mobile">Class</span></>;
@@ -140,6 +166,34 @@ const AddSessionClassModal = ({
             {formData.classInstances.map((instance, index) => (
               <div key={index} className="roster-entry">
                 <div className="instance-fields">
+                  <div className="class-instance-days-header">
+                    <FormHelperText>
+                      Days
+                    </FormHelperText>
+
+                    {formData.classInstances.length > 1 && (
+                      <Button
+                        className="icon small transparent no-border"
+                        handleClick={(e) => handleRemoveDayTime(e, index)}
+                      >
+                        <Clear />
+                      </Button>
+                    )}
+                  </div>
+                  <div className="class-instance-days">
+                    <div className="form-row">
+                      {daysOfTheWeek.map((day, i) => (
+                        <div key={i} className="pill-container">
+                          <Button
+                            className={`pill ${instance.daysOfTheWeek.includes(day) ? "selected" : ""}`}
+                            handleClick={() => handleDayToggle(index, day)}
+                          >
+                            {day.slice(0, 3)}
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                   <div className="form-row">
                     <TextField
                       label="Start Time"
@@ -167,18 +221,17 @@ const AddSessionClassModal = ({
                     />
                   </div>
                 </div>
-                  {formData.classInstances.length > 1 && (
-                <div className="remove-instance-btn">
-                    <Button
-                      className="danger small"
-                      handleClick={(e) => handleRemoveDayTime(e, index)}
-                    >
-                      Remove
-                    </Button>
-                </div>
-                  )}
               </div>
             ))}
+            <div>
+              <Button
+                className="primary"
+                handleClick={handleAddAnotherDayTime}
+                disabled={formData.classInstances.length >= 7 || submitting}
+              >
+                <Add /> &nbsp; {formData.classInstances.length < 7 ? "Add Another Day / Time" : "Max Days Added"}
+              </Button>
+            </div>
           </form>
         </div>
       </ModalComponent>

@@ -51,6 +51,7 @@ $french-gray-25: rgba(206, 212, 218, 0.25);
 $burnt-caramel-13: rgba(202, 103, 2, 0.13);
 $brown-red-10: rgba(155,34,38, 0.1);
 $oxidized-iron-10: rgba(74, 32, 18, 0.10);
+$pearl-aqua-10: rgba(148,210,189, 0.1);
 
 $background-color: $vanilla-custard;
 $navigation-color: $ink-black;
@@ -153,6 +154,12 @@ $list-item-link-hover-color: $brown-red;
 
 $week-count-color: $dark-teal;
 $week-count-bg: $meadow-green-15;
+
+// Session Form
+$session-form-bg: $pearl-aqua-10;
+$session-form-header-color: $dark-teal;
+$session-form-btn-color: $light-vanilla-custard;
+$session-form-btn-bg: $dark-cyan; 
 
 // Pills
 $pill-radius: 20px;

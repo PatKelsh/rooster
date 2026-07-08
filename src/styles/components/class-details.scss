@@ -1,0 +1,71 @@
+@use '../.resources/colors.scss' as *;
+@use '../.resources/screen-sizes.scss' as *;
+
+// Form
+.add-session-class-form {
+  .MuiAutocomplete-root, .text-field-container {
+    margin-bottom: 10px;
+  }
+
+  .primary {
+    background-color: $session-form-btn-bg;
+    color: $session-form-btn-color;
+    margin-top: 20px;
+    opacity: 0.8;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.instance-fields {
+  background-color: $bg-color;
+  border: 1px solid $table-border-color;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+  .class-instance-days-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    FormHelperText {
+      margin-bottom: 0;
+    }
+  }
+
+.class-instance-days {
+  max-width: $xs;
+  margin-bottom: 10px;
+
+  .pill {
+    margin: 0 5px 5px 0;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    width: 50px;
+  }
+
+  .form-row {
+    display: flex;
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    justify-content: flex-start !important;
+  }
+}
+
+@media (max-width: $sm) {
+  .class-instance-days {
+    .pill {
+      width: 45px;
+      font-size: 0.7rem;
+    }
+  }
+}

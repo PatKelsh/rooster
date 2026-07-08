@@ -99,6 +99,18 @@ button {
       color: $primary-btn-color;
     }
   }
+
+  &.pill {
+    &:hover {
+      background-color: $dark-teal;
+      color: $vanilla-custard;
+    }
+
+    &.selected {
+      background-color: $slate-gray;
+      color: $vanilla-custard;
+    }
+  }
 }
 
 .sign-out-btn {
