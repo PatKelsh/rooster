@@ -29,3 +29,37 @@ export async function GET(request: NextRequest) {
     );
   }
 }
+
+export async function POST(request: NextRequest) {
+  try {
+    const { ...body } = await request.json();
+
+    const newPrice = parseFloat(body.price);
+    
+    const newCapacity = parseInt(body.capacity, 10);
+
+    if (isNaN(newPrice) || isNaN(newCapacity)) {
+      return NextResponse.json(
+        { error: "Invalid price or capacity value" },
+        { status: 400 },
+      );
+    }
+
+    const classTermDetailData = {
+      ...body,
+      price: newPrice,
+      capacity: newCapacity
+    };
+
+    const newClassTermDetail = await createClassTermDetail(classTermDetailData);
+
+    console.log("New Class Term Detail created:", newClassTermDetail);
+
+    return NextResponse.json(newClassTermDetail, { status: 201 });
+  } catch (error) {
+    return NextResponse.json(
+      { error: `Internal Server Error: ${error instanceof Error ? error.message : "An unexpected error occurred"}` },
+      { status: 500 },
+    );
+  }
+}

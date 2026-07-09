@@ -120,11 +120,37 @@ const AddSessionClassModal = ({
 
   const addSessionBtn = <><Add /> Add <span className="hide-for-mobile">Class</span></>;
 
-  const modalHeader = <h2>Add Class to {sessionName || "Session"}</h2>
+  const modalHeader = <h2>Add Class to {sessionName || "Session"}</h2>;
+
+  const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSubmitting(true);
+    try {
+      const response = await fetch("/api/admin/classDetails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to add class.");
+      }
+      
+      setCloseOnAction(true);
+      resetCloseOnAction();
+      setIsLoading(true);
+    } catch (error) {
+      console.error("Error adding class:", error);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   const submitBtn = () => {
     return (
-      <Button>
+      <Button handleSubmit={handleSubmit}>
         Add Class
       </Button>
     );

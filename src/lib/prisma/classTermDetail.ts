@@ -17,11 +17,6 @@ export type ClassTermDetailSchedule = {
   class: {
     name: string;
   };
-  classInstances: {
-    dayOfTheWeek: string;
-    startTime: string;
-    endTime: string;
-  }[];
 };
 
 export type ClassTermGetBySession = {
@@ -29,11 +24,6 @@ export type ClassTermGetBySession = {
   class: {
     name: string;
   };
-  classInstances: {
-    dayOfTheWeek: string;
-    startTime: string;
-    endTime: string;
-  }[];
 };
 
 const dayOrder: Record<string, number> = {
@@ -46,34 +36,30 @@ const dayOrder: Record<string, number> = {
   "Saturday": 6
 };
 
-const sortClassInstances = (instances: ClassInstanceCreateInput[]) => {
-  return instances.sort((a, b) => {
-    if (dayOrder[a.dayOfTheWeek] !== dayOrder[b.dayOfTheWeek]) {
-      return dayOrder[a.dayOfTheWeek] - dayOrder[b.dayOfTheWeek];
-    }
-    return a.startTime.localeCompare(b.startTime);
-  })
-};
+// const sortClassInstances = (instances: ClassInstanceCreateInput[]) => {
+//   return instances.sort((a, b) => {
+//     if (dayOrder[a.dayOfTheWeek] !== dayOrder[b.dayOfTheWeek]) {
+//       return dayOrder[a.dayOfTheWeek] - dayOrder[b.dayOfTheWeek];
+//     }
+//     return a.startTime.localeCompare(b.startTime);
+//   })
+// };
 
 // POST
 
 export const createClassTermDetail = async (
   data: ClassTermDetailWithRelations,
 ): Promise<ClassTermDetails> => {
-  const { price,
-          capacity,
-          termSpecificDescription,
-          classId,
-          termId,
-          classInstances
-        } = data;
+  const { price, capacity, termSpecificDescription, classId, termId, classInstances } = data;
+
+  console.log("Parsed values - Price:", price, "Capacity:", capacity, "Term Specific Description:", termSpecificDescription, "Class ID:", classId, "Term ID:", termId, "Class Instances:", classInstances);
 
   try {
     const createClassInstances = (
       classInstancesData: ClassInstanceCreateInput[]
     ) => {
       const classInstancesCreate = { create: classInstancesData.map(instance => ({
-        dayOfTheWeek: instance.dayOfTheWeek,
+        daysOfTheWeek: instance.daysOfTheWeek,
         startTime: instance.startTime,
         endTime: instance.endTime,
       }))};
@@ -86,25 +72,20 @@ export const createClassTermDetail = async (
         capacity,
         termSpecificDescription,
         classInstances: createClassInstances(classInstances || []),
-        class: {
-          connect: {
-            id: classId,
-          },
-        },
-        term: {
-          connect: {
-            id: termId,
-          },
-        },
+        class: { connect: { id: classId } },
+        term: { connect: { id: termId } }
       },
       include: {
         classInstances: true,
       },
     });
+
     return newClassTermDetail;
   } catch (error) {
-    throw new Error(error instanceof Error ? error.message : "Failed to create class term detail");
+    console.error("Error creating class term detail:", error);
+    throw error;
   }
+
 };
 
 // DELETE
@@ -133,13 +114,6 @@ export const getClassTermDetailsBySession = async (termId: string): Promise<Clas
           name: true,
         }
       },
-      classInstances: {
-        select: {
-          dayOfTheWeek: true,
-          startTime: true,
-          endTime: true,
-        }
-      }
     },
     orderBy: {
       class: {
@@ -148,12 +122,7 @@ export const getClassTermDetailsBySession = async (termId: string): Promise<Clas
     }
   });
 
-  const sortedClassDetails = classDetails.map(detail => ({
-    ...detail,
-    classInstances: sortClassInstances(detail.classInstances)
-  }));
-
-  return sortedClassDetails;
+  return classDetails;
 }
 
 export const getClassTermDetailById = async (id: string): Promise<ClassTermDetailWithRelations | null> => {
@@ -172,62 +141,62 @@ export const getClassTermDetailById = async (id: string): Promise<ClassTermDetai
     }
   });
 
-  const sortedClassInstances = classTermDetail?.classInstances ? sortClassInstances(classTermDetail.classInstances) : [];
+  // const sortedClassInstances = classTermDetail?.classInstances ? sortClassInstances(classTermDetail.classInstances) : [];
 
-  return classTermDetail ? { ...classTermDetail, classInstances: sortedClassInstances } : null;
+  return classTermDetail ? { ...classTermDetail /*, classInstances: sortedClassInstances */ } : null;
 }
 
-export const getClassTermDetailsScheduleBySession = async (termId: string): Promise<ClassTermDetailSchedule[]> => {
-  const sortClassesByInstances = (classDetails: ClassTermDetailSchedule[]) => {
-    return classDetails.sort((a, b) => {
-      const aFirstInstance = a.classInstances ? a.classInstances[0] : null;
-      const bFirstInstance = b.classInstances ? b.classInstances[0] : null;
+// export const getClassTermDetailsScheduleBySession = async (termId: string): Promise<ClassTermDetailSchedule[]> => {
+//   const sortClassesByInstances = (classDetails: ClassTermDetailSchedule[]) => {
+//     return classDetails.sort((a, b) => {
+//       const aFirstInstance = a.classInstances ? a.classInstances[0] : null;
+//       const bFirstInstance = b.classInstances ? b.classInstances[0] : null;
 
-      if (aFirstInstance && bFirstInstance) {
-        if (dayOrder[aFirstInstance.dayOfTheWeek] !== dayOrder[bFirstInstance.dayOfTheWeek]) {
-          return dayOrder[aFirstInstance.dayOfTheWeek] - dayOrder[bFirstInstance.dayOfTheWeek];
-        }
-        return aFirstInstance.startTime.localeCompare(bFirstInstance.startTime);
-      } else if (aFirstInstance) {
-        return -1; // a comes first
-      } else if (bFirstInstance) {
-        return 1; // b comes first
-      } else {
-        return 0; // maintain original order if no instances
-      }
-    });
-  }
+//       if (aFirstInstance && bFirstInstance) {
+//         if (dayOrder[aFirstInstance.dayOfTheWeek] !== dayOrder[bFirstInstance.dayOfTheWeek]) {
+//           return dayOrder[aFirstInstance.dayOfTheWeek] - dayOrder[bFirstInstance.dayOfTheWeek];
+//         }
+//         return aFirstInstance.startTime.localeCompare(bFirstInstance.startTime);
+//       } else if (aFirstInstance) {
+//         return -1; // a comes first
+//       } else if (bFirstInstance) {
+//         return 1; // b comes first
+//       } else {
+//         return 0; // maintain original order if no instances
+//       }
+//     });
+//   }
 
-  const classDetails = await db.classTermDetails.findMany({
-    where: {
-      termId
-    },
-    select: {
-      id: true,
-      class: {
-        select: {
-          name: true,
-        }
-      },
-      classInstances: {
-        select: {
-          dayOfTheWeek: true,
-          startTime: true,
-          endTime: true,
-        }
-      }
-    },
-    orderBy: {
-      class: {
-        name: "asc",
-      }
-    }
-  });
+//   const classDetails = await db.classTermDetails.findMany({
+//     where: {
+//       termId
+//     },
+//     select: {
+//       id: true,
+//       class: {
+//         select: {
+//           name: true,
+//         }
+//       },
+//       classInstances: {
+//         select: {
+//           dayOfTheWeek: true,
+//           startTime: true,
+//           endTime: true,
+//         }
+//       }
+//     },
+//     orderBy: {
+//       class: {
+//         name: "asc",
+//       }
+//     }
+//   });
 
-  const sortedClassDetails = sortClassesByInstances(classDetails)
+//   const sortedClassDetails = sortClassesByInstances(classDetails)
 
-  return sortedClassDetails;
-}
+//   return sortedClassDetails;
+// }
 
 // UPDATE
 
@@ -252,7 +221,7 @@ export const updateClassTermDetail = async (
         classInstances: data.classInstances ? {
           deleteMany: {}, // Delete existing instances
           create: data.classInstances.map(instance => ({
-            dayOfTheWeek: instance.dayOfTheWeek,
+            daysOfTheWeek: instance.daysOfTheWeek,
             startTime: instance.startTime,
             endTime: instance.endTime,
           })) // Create new instances
@@ -265,11 +234,11 @@ export const updateClassTermDetail = async (
       },
     });
 
-    const sortedClassInstances = sortClassInstances(updatedClassTermDetail.classInstances);
+    // const sortedClassInstances = sortClassInstances(updatedClassTermDetail.classInstances);
 
     return {
       ...updatedClassTermDetail,
-      classInstances: sortedClassInstances,
+      // classInstances: sortedClassInstances,
     };
   } catch (error) {
     throw new Error(error instanceof Error ? error.message : "Failed to update class term detail");
