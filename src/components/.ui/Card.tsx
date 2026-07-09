@@ -5,7 +5,7 @@ import { ReactNode } from 'react';
 interface CardProps {
   children: ReactNode;
   title: string;
-  icon: ReactNode;
+  icon?: ReactNode;
   headerActions?: ReactNode;
   subtitle?: string;
 }

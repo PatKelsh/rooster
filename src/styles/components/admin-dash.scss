@@ -12,6 +12,7 @@
     padding: 15px 0;
     position: fixed;
     width: 100%;
+    z-index: 1000;
 
     a, a:visited {
       color: $admin-dash-link-text;

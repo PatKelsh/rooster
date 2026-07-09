@@ -61,6 +61,49 @@
   }
 }
 
+.admin-session-class-detail-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+// Card
+
+.MuiPaper-root {
+  border: 1px solid $list-item-border-color !important;
+}
+
+.MuiPaper-root, .MuiAccordion-heading, .MuiButtonBase-root {
+  &::before {
+    content: none !important;
+  }
+
+  background-color: $list-item-bg !important;
+  border-radius: $list-item-border-radius !important;
+  box-shadow: none !important;
+  padding: 10px;
+
+  &:hover {
+    background-color: $list-item-bg !important;
+  }
+
+  h3 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+}
+
+.Mui-expanded {
+  margin: 0 !important;
+
+  .MuiCollapse-entered {
+    border-top: 1px solid $table-border-color;
+    padding-top: 10px;
+  }
+}
+
 @media (max-width: $sm) {
   .class-instance-days {
     .pill {

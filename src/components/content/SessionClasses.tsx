@@ -3,12 +3,20 @@
 import { useEffect, useState } from "react";
 import { ClassDetailProps } from "@/lib/props";
 import AddSessionClassModal from "@/components/modals/AddSessionClass";
+import Accordion from '@mui/material/Accordion';
+import AccordionActions from '@mui/material/AccordionActions';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { fetchClassDetailsByTerm } from "@/lib/api/classDetails";
 
 const SessionClasses = ({ sessionId, sessionName }: { sessionId: string, sessionName?: string }) => {
   const [classes, setClasses] = useState<ClassDetailProps[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  console.log(classes)
 
   useEffect(() => {
     const fetchClasses = async () => {
@@ -32,7 +40,7 @@ const SessionClasses = ({ sessionId, sessionName }: { sessionId: string, session
     <>
       <div className="admin-session-classes-header">
         <div>
-          <h4>Classes in this Session</h4>
+          <h2>Classes in this Session</h2>
         </div>
         <div>
           <AddSessionClassModal
@@ -43,7 +51,7 @@ const SessionClasses = ({ sessionId, sessionName }: { sessionId: string, session
           />
         </div>
       </div>
-      <div>
+      <div className="admin-session-class-detail-list">
         {isLoading ? (
           <div>Loading classes...</div>
         ) : error ? (
@@ -51,13 +59,24 @@ const SessionClasses = ({ sessionId, sessionName }: { sessionId: string, session
         ) : classes.length === 0 ? (
           <div>No classes found for this session.</div>
         ) : (
-          <ul>
-            {classes.map((classDetail) => (
-              <li key={classDetail.id}>
-                {classDetail.class.name}
-              </li>
+          <>
+            {classes.map((classDetail, index) => (
+              <Accordion key={index}>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls={`panel${index}-content`}
+                  id={`panel${index}-header`}
+                  className="class-detail-card"
+                >
+                  <h3>{classDetail.class.name}</h3>
+                </AccordionSummary>
+                <AccordionDetails>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                  malesuada lacus ex, sit amet blandit leo lobortis eget.
+                </AccordionDetails>
+              </Accordion>
             ))}
-          </ul>
+          </>
         )}
       </div>
     </>

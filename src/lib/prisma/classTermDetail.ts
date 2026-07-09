@@ -107,13 +107,13 @@ export const getClassTermDetailsBySession = async (termId: string): Promise<Clas
     where: {
       termId
     },
-    select: {
-      id: true,
+    include: {
       class: {
         select: {
           name: true,
         }
       },
+      classInstances: true
     },
     orderBy: {
       class: {
