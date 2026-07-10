@@ -20,6 +20,13 @@ export const getRosterEntryById = async (id: string): Promise<RosterItem | null>
   });
 };
 
+// Get roster entries by a specified class id
+export const getRosterByClassId = async (classId: string): Promise<RosterItem[]> => {
+  return await db.rosterItem.findMany({
+    where: { classTermRosterId: classId },
+  });
+}
+
 //Get roster entries by a specified user id
 export const getRosterEntriesByUserId = async (userId: string): Promise<RosterItem[]> => {
   return await db.rosterItem.findMany({
