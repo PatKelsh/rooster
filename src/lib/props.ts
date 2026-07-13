@@ -34,7 +34,7 @@ export interface TermProps {
 export interface ClassInstanceProps {
   id: string;
   classTermDetailId: string;
-  dayOfTheWeek: string;
+  daysOfTheWeek: string[];
   startTime: string;
   endTime: string;
 }

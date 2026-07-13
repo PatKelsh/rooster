@@ -69,7 +69,6 @@
 }
 
 // Card
-
 .MuiPaper-root {
   border: 1px solid $list-item-border-color !important;
 }
@@ -101,7 +100,44 @@
   .MuiCollapse-entered {
     border-top: 1px solid $table-border-color;
     padding-top: 10px;
+    transition: all 0.3s ease-in-out;
   }
+}
+
+.admin-session-class-detail {
+  background-color: $list-item-bg;
+  border: 1px solid $list-item-border-color;
+  border-radius: $list-item-border-radius;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+
+  .class-instance-days {
+    .pill {
+      width: 50px;
+      font-size: 0.8rem;
+    }
+  }
+
+  .reveal {
+    display: none;
+  }
+
+  &:hover {
+    .reveal {
+      display: block;
+    }
+  }
+}
+
+.class-detail-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  color: $slate-gray;
 }
 
 @media (max-width: $sm) {

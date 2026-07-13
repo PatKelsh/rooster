@@ -3,20 +3,13 @@
 import { useEffect, useState } from "react";
 import { ClassDetailProps } from "@/lib/props";
 import AddSessionClassModal from "@/components/modals/AddSessionClass";
-import Accordion from '@mui/material/Accordion';
-import AccordionActions from '@mui/material/AccordionActions';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { fetchClassDetailsByTerm } from "@/lib/api/classDetails";
+import DeleteItemModal from "../modals/DeleteItem";
 
 const SessionClasses = ({ sessionId, sessionName }: { sessionId: string, sessionName?: string }) => {
   const [classes, setClasses] = useState<ClassDetailProps[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  console.log(classes)
 
   useEffect(() => {
     const fetchClasses = async () => {
@@ -61,20 +54,33 @@ const SessionClasses = ({ sessionId, sessionName }: { sessionId: string, session
         ) : (
           <>
             {classes.map((classDetail, index) => (
-              <Accordion key={index}>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls={`panel${index}-content`}
-                  id={`panel${index}-header`}
-                  className="class-detail-card"
-                >
-                  <h3>{classDetail.class.name}</h3>
-                </AccordionSummary>
-                <AccordionDetails>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                  malesuada lacus ex, sit amet blandit leo lobortis eget.
-                </AccordionDetails>
-              </Accordion>
+              <div key={index} className="admin-session-class-detail">
+                <div className="class-detail-info">
+                  <div>
+                    <h3>{classDetail.class.name}</h3>
+                  </div>
+                  <div>
+                    {classDetail.classInstances.map((instance, idx) => (
+                      <div key={idx}>
+                        {instance.daysOfTheWeek.join(", ")}: {instance.startTime} - {instance.endTime}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="reveal">
+                  <div className="action-buttons">
+                    {/* <Button className="icon x-small transparent no-border" onClick={() => editLocation(location)}>
+                      <BorderColorIcon />
+                    </Button> */}
+                    <DeleteItemModal
+                      itemId={classDetail.id}
+                      name={`${classDetail.class.name} from ${sessionName || "this session"}`}
+                      type="classDetails"
+                      setIsLoading={setIsLoading}
+                    />
+                  </div>
+                </div>
+              </div>
             ))}
           </>
         )}

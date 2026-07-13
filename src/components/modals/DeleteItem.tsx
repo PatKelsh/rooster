@@ -7,7 +7,7 @@ import Button from "@/components/.ui/Button";
 
 interface DeleteItemModalProps {
   itemId: string;
-  type: "session" | "class";
+  type: "session" | "class" | "classDetails";
   name?: string;
   setIsLoading?: React.Dispatch<React.SetStateAction<boolean>>;
   btnStyle?: "icon" | "forCard";
@@ -41,7 +41,9 @@ const DeleteItemModal = ({
     } catch (error) {
       console.log(`Error deleting ${type}:`, error);
     }
-    router.push(`/admin/${type}s`);
+    if (type != "classDetails") {
+      router.push(`/admin/${type}s`);
+    }
   }
 
   const confirmDelete = () => {

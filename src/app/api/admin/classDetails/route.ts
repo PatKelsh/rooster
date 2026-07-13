@@ -63,3 +63,25 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "id query parameter is required" },
+        { status: 400 },
+      );
+    }
+
+    const deletedClassTermDetail = await deleteClassTermDetail(id);
+    return NextResponse.json(deletedClassTermDetail, { status: 200 });
+  } catch (error) {
+    return NextResponse.json(
+      { error: `Internal Server Error: ${error instanceof Error ? error.message : "An unexpected error occurred"}` },
+      { status: 500 },
+    );
+  }
+}
