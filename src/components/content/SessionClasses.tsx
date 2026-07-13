@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { ClassDetailProps } from "@/lib/props";
 import AddSessionClassModal from "@/components/modals/AddSessionClass";
 import { fetchClassDetailsByTerm } from "@/lib/api/classDetails";
-import DeleteItemModal from "../modals/DeleteItem";
+import ClassDetailItem from "@/components/content/ClassDetailItem";
 
 const SessionClasses = ({ sessionId, sessionName }: { sessionId: string, sessionName?: string }) => {
   const [classes, setClasses] = useState<ClassDetailProps[]>([]);
@@ -40,7 +40,6 @@ const SessionClasses = ({ sessionId, sessionName }: { sessionId: string, session
             setIsLoading={setIsLoading}
             sessionId={sessionId}
             sessionName={sessionName}
-            classCount={classes.length}
           />
         </div>
       </div>
@@ -54,33 +53,12 @@ const SessionClasses = ({ sessionId, sessionName }: { sessionId: string, session
         ) : (
           <>
             {classes.map((classDetail, index) => (
-              <div key={index} className="admin-session-class-detail">
-                <div className="class-detail-info">
-                  <div>
-                    <h3>{classDetail.class.name}</h3>
-                  </div>
-                  <div>
-                    {classDetail.classInstances.map((instance, idx) => (
-                      <div key={idx}>
-                        {instance.daysOfTheWeek.join(", ")}: {instance.startTime} - {instance.endTime}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="reveal">
-                  <div className="action-buttons">
-                    {/* <Button className="icon x-small transparent no-border" onClick={() => editLocation(location)}>
-                      <BorderColorIcon />
-                    </Button> */}
-                    <DeleteItemModal
-                      itemId={classDetail.id}
-                      name={`${classDetail.class.name} from ${sessionName || "this session"}`}
-                      type="classDetails"
-                      setIsLoading={setIsLoading}
-                    />
-                  </div>
-                </div>
-              </div>
+              <ClassDetailItem
+                key={classDetail.id}
+                classDetail={classDetail}
+                sessionName={sessionName}
+                setIsLoading={setIsLoading}
+              />
             ))}
           </>
         )}

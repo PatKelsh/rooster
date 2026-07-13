@@ -1,34 +1,20 @@
 "use client";
 
 import { Dispatch, SetStateAction, SubmitEvent, useEffect, useState } from "react";
-import { Add, AttachMoney, Clear } from '@mui/icons-material';
-import { FormHelperText } from "@mui/material";
-import Autocomplete from "@/components/.ui/Autocomplete";
+import { Add } from '@mui/icons-material';
 import ModalComponent from "@/components/.ui/Modal";
-import TextField from "@/components/.ui/TextField";
 import Button from "@/components/.ui/Button";
-
-const daysOfTheWeek = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday"
-];
+import SessionClassForm from "../forms/sessionClass";
 
 interface AddSessionClassModalProps {
   setIsLoading: Dispatch<SetStateAction<boolean>>;
   sessionId: string;
-  classCount: number;
   sessionName?: string;
 }
 
 const AddSessionClassModal = ({
   setIsLoading,
   sessionId,
-  classCount,
   sessionName
 }: AddSessionClassModalProps) => {
   const [classOptions, setClassOptions] = useState<{ id: string; name: string }[]>([]);
@@ -167,108 +153,12 @@ const AddSessionClassModal = ({
         btnAction={submitBtn()}
         closeOnAction={closeOnAction}
       >
-        <div className="form-container">
-          <form className="add-session-class-form">
-            <Autocomplete
-              options={classOptions}
-              label="Class"
-              name="classId"
-              initialValue={formData.className}
-              disabled={submitting}
-              handleChange={handleClassChange}
-            />
-            <div className="form-row">
-              <TextField
-                label="Price"
-                name="price"
-                type="number"
-                initialValue={formData.price}
-                onChange={handleChange}
-                disabled={submitting}
-                slotAdornment={
-                  <AttachMoney />
-                }
-              />
-              <TextField
-                label="Capacity"
-                name="capacity"
-                type="number"
-                initialValue={formData.capacity}
-                onChange={handleChange}
-                disabled={submitting}
-              />
-            </div>
-            {formData.classInstances.map((instance, index) => (
-              <div key={index} className="roster-entry">
-                <div className="instance-fields">
-                  <div className="class-instance-days-header">
-                    <FormHelperText>
-                      Days
-                    </FormHelperText>
-
-                    {formData.classInstances.length > 1 && (
-                      <Button
-                        className="icon small transparent no-border"
-                        handleClick={(e) => handleRemoveDayTime(e, index)}
-                      >
-                        <Clear />
-                      </Button>
-                    )}
-                  </div>
-                  <div className="class-instance-days">
-                    <div className="form-row">
-                      {daysOfTheWeek.map((day, i) => (
-                        <div key={i} className="pill-container">
-                          <Button
-                            className={`pill ${instance.daysOfTheWeek.includes(day) ? "selected" : ""}`}
-                            handleClick={() => handleDayToggle(index, day)}
-                          >
-                            {day.slice(0, 3)}
-                          </Button>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="form-row">
-                    <TextField
-                      label="Start Time"
-                      name="startTime"
-                      type="time"
-                      InputLabelProps={{
-                        shrink: true, // Forces the label to move to the top
-                      }}
-                      initialValue={instance.startTime}
-                      resetInitialValue={true}
-                      onChange={(e) => handleInstanceChange(index, e)}
-                      disabled={submitting}
-                    />
-                    <TextField
-                      label="End Time"
-                      name="endTime"
-                      type="time"
-                      InputLabelProps={{
-                        shrink: true, // Forces the label to move to the top
-                      }}
-                      initialValue={instance.endTime}
-                      resetInitialValue={true}
-                      onChange={(e) => handleInstanceChange(index, e)}
-                      disabled={submitting}
-                    />
-                  </div>
-                </div>
-              </div>
-            ))}
-            <div>
-              <Button
-                className="primary"
-                handleClick={handleAddAnotherDayTime}
-                disabled={formData.classInstances.length >= 7 || submitting}
-              >
-                <Add /> &nbsp; {formData.classInstances.length < 7 ? "Add Another Day / Time" : "Max Days Added"}
-              </Button>
-            </div>
-          </form>
-        </div>
+        <SessionClassForm
+          sessionId={sessionId}
+          submitting={submitting}
+          setFormData={setFormData}
+          formData={formData}
+        />
       </ModalComponent>
     </>
   )

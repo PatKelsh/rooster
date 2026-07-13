@@ -111,7 +111,12 @@
   padding: 20px;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   gap: 20px;
+
+  &.editing {
+    background-color: $list-item-editing-bg;
+  }
 
   .class-instance-days {
     .pill {
@@ -120,15 +125,29 @@
     }
   }
 
-  .reveal {
-    display: none;
-  }
+  .action-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
 
-  &:hover {
-    .reveal {
-      display: block;
+    .icon {
+      color: $slate-gray;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px;
     }
   }
+
+  // .reveal {
+  //   display: none;
+  // }
+
+  // &:hover {
+  //   .reveal {
+  //     display: block;
+  //   }
+  // }
 }
 
 .class-detail-info {

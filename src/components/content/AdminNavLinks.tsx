@@ -6,7 +6,8 @@ import {
   DashboardOutlined,
   ImportContacts,
   PeopleAltOutlined,
-  SettingsOutlined
+  SettingsOutlined,
+  Air,
 } from '@mui/icons-material';
 
 const AdminNavLinks = () => {
@@ -35,6 +36,14 @@ const AdminNavLinks = () => {
           <CalendarToday />
           <div>
             Sessions
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/open-hang" className={pathname === "/admin/open-hang" ? "active" : ""}>
+          <Air />
+          <div>
+            Open Hang /<br />Point Rental
           </div>
         </a>
       </li>
