@@ -3,21 +3,38 @@
 import { useState } from "react";
 import { ClassDetailProps}  from "@/lib/props";
 import { BorderColor } from "@mui/icons-material";
+import SessionClassForm from "../forms/sessionClass";
 import DeleteItemModal from "@/components/modals/DeleteItem";
 import Button from "@/components/.ui/Button";
 
 interface ClassDetailItemProps {
   classDetail: ClassDetailProps;
-  sessionName?: string;
+  sessionId: string;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  sessionName?: string;
 }
 
 const ClassDetailItem = ({
   classDetail,
-  sessionName,
-  setIsLoading
+  sessionId,
+  setIsLoading,
+  sessionName
 }: ClassDetailItemProps) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    classId: classDetail.classId,
+    className: classDetail.class.name,
+    price: classDetail.price,
+    capacity: classDetail.capacity,
+    termSpecificDescription: classDetail.termSpecificDescription || "",
+    classInstances: classDetail.classInstances.map(instance => ({
+      daysOfTheWeek: instance.daysOfTheWeek,
+      startTime: instance.startTime,
+      endTime: instance.endTime
+    })),
+    termId: sessionId
+  });
 
   return (
     <div className={`admin-session-class-detail${isEditing ? " editing" : ""}`}>
@@ -25,10 +42,10 @@ const ClassDetailItem = ({
         <>
           <div className="class-detail-info">
             <div>
-              <h3>{classDetail.class.name}</h3>
+              <h3>{formData.className}</h3>
             </div>
             <div>
-              {classDetail.classInstances.map((instance, idx) => (
+              {formData.classInstances.map((instance, idx) => (
                 <div key={idx}>
                   {instance.daysOfTheWeek.join(", ")}: {instance.startTime} - {instance.endTime}
                 </div>
@@ -41,8 +58,8 @@ const ClassDetailItem = ({
                 <BorderColor />
               </Button>
               <DeleteItemModal
-                itemId={classDetail.id}
-                name={`${classDetail.class.name} from ${sessionName || "this session"}`}
+                itemId={formData.classId}
+                name={`${formData.className} from ${sessionName || "this session"}`}
                 type="classDetails"
                 setIsLoading={setIsLoading}
               />
@@ -51,7 +68,13 @@ const ClassDetailItem = ({
         </>
       ) : (
         <>
-          <Button onClick={() => setIsEditing(false)}>
+          <SessionClassForm
+            sessionId={sessionId}
+            submitting={submitting}
+            setFormData={setFormData}
+            formData={formData}
+          />
+          <Button className="transparent" onClick={() => setIsEditing(false)}>
             Cancel
           </Button>
         </>

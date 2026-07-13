@@ -116,6 +116,11 @@
 
   &.editing {
     background-color: $list-item-editing-bg;
+    flex-direction: column;
+
+    .form-container {
+      width: 100%;
+    }
   }
 
   .class-instance-days {
