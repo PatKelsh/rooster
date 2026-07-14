@@ -60,7 +60,7 @@ async function main() {
     },
   });
   await prisma.class.upsert({
-    where: { name: 'test silks' },
+    where: { name: 'test silks', id: 'test-silks' },
     update: {},
     create: {
       name: 'test silks',
@@ -68,7 +68,7 @@ async function main() {
     },
   });
   await prisma.class.upsert({
-    where: { name: 'test trapeze' },
+    where: { name: 'test trapeze', id: 'test-trapeze' },
     update: {},
     create: {
       name: 'test trapeze',
