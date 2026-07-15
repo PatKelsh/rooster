@@ -7,11 +7,13 @@ import { fetchClassDetailsByTerm } from "@/lib/api/classDetails";
 import { EventNote, SortByAlpha } from "@mui/icons-material";
 import ClassDetailItem from "@/components/content/ClassDetailItem";
 import Button from "@/components/.ui/Button";
+import SessionClassScheduleView from "./SessionClassSchedule";
 
 const SessionClasses = ({ sessionId, sessionName }: { sessionId: string, sessionName?: string }) => {
   const [classes, setClasses] = useState<ClassDetailProps[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [viewType, setViewType] = useState<"name" | "schedule">("name");
 
   useEffect(() => {
     const fetchClasses = async () => {
@@ -49,13 +51,13 @@ const SessionClasses = ({ sessionId, sessionName }: { sessionId: string, session
         <div>
           Sort By:
         </div>
-        <Button>
+        <Button className={viewType === "name" ? "active" : ""} onClick={() => setViewType("name")}>
           <SortByAlpha />
           <div>
             Name
           </div>
         </Button>
-        <Button>
+        <Button className={viewType === "schedule" ? "active" : ""} onClick={() => setViewType("schedule")}>
           <EventNote />
           <div>
             Schedule
@@ -71,15 +73,22 @@ const SessionClasses = ({ sessionId, sessionName }: { sessionId: string, session
           <div>No classes found for this session.</div>
         ) : (
           <>
-            {classes.map((classDetail, index) => (
-              <ClassDetailItem
-                key={index}
-                classDetail={classDetail}
-                sessionName={sessionName}
-                sessionId={sessionId}
-                setIsLoading={setIsLoading}
-              />
-            ))}
+            {viewType === "name" && (
+              <>
+                {classes.map((classDetail, index) => (
+                  <ClassDetailItem
+                    key={index}
+                    classDetail={classDetail}
+                    sessionName={sessionName}
+                    sessionId={sessionId}
+                    setIsLoading={setIsLoading}
+                  />
+                ))}
+              </>
+            )}
+            {viewType === "schedule" && (
+              <SessionClassScheduleView classDetails={classes} />
+            )}
           </>
         )}
       </div>
