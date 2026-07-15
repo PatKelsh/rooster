@@ -68,6 +68,31 @@
   margin-top: 20px;
 }
 
+.view-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 20px;
+  align-items: center;
+  gap: 10px;
+
+  button {
+    background-color: $sort-btn-bg;
+    display: flex;
+    flex-direction: column;
+    max-width: 70px;
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    div {
+      font-size: 0.7rem;
+    }
+  }
+}
+
 // Card
 .MuiPaper-root {
   border: 1px solid $list-item-border-color !important;

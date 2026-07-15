@@ -4,7 +4,9 @@ import { useEffect, useState } from "react";
 import { ClassDetailProps } from "@/lib/props";
 import AddSessionClassModal from "@/components/modals/AddSessionClass";
 import { fetchClassDetailsByTerm } from "@/lib/api/classDetails";
+import { EventNote, SortByAlpha } from "@mui/icons-material";
 import ClassDetailItem from "@/components/content/ClassDetailItem";
+import Button from "@/components/.ui/Button";
 
 const SessionClasses = ({ sessionId, sessionName }: { sessionId: string, sessionName?: string }) => {
   const [classes, setClasses] = useState<ClassDetailProps[]>([]);
@@ -42,6 +44,23 @@ const SessionClasses = ({ sessionId, sessionName }: { sessionId: string, session
             sessionName={sessionName}
           />
         </div>
+      </div>
+      <div className="view-buttons">
+        <div>
+          Sort By:
+        </div>
+        <Button>
+          <SortByAlpha />
+          <div>
+            Name
+          </div>
+        </Button>
+        <Button>
+          <EventNote />
+          <div>
+            Schedule
+          </div>
+        </Button>
       </div>
       <div className="admin-session-class-detail-list">
         {isLoading ? (
