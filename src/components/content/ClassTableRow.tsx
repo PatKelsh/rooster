@@ -1,6 +1,6 @@
 "use client";
 
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, SubmitEvent, useState } from "react";
 import Button from "@/components/.ui/Button";
 import DeleteItemModal from "@/components/modals/DeleteItem";
 import { BorderColor } from "@mui/icons-material";
@@ -28,7 +28,7 @@ const ClassTableRow = ({ classItem, setIsLoading }: ClassTableRowProps) => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       setSubmitting(true);
