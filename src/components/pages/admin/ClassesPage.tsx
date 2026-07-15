@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ClassProps } from "@/lib/props";
 import { fetchClasses } from "@/lib/api/class";
 import { Add, DeleteForeverOutlined, ImportExport } from "@mui/icons-material";
+import AddClassModal from "@/components/modals/AddClass";
 import Button from "@/components/.ui/Button";
 
 const AdminClassesMainPage = () => {
@@ -25,9 +26,7 @@ const AdminClassesMainPage = () => {
           {classList.length} classes
         </div>
         <div>
-          <Button className="w-icon">
-            <Add /> New Class
-          </Button>
+          <AddClassModal setIsLoading={setIsLoading} />
         </div>
       </div>
       <div className="admin-page-content">

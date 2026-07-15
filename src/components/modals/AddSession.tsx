@@ -28,20 +28,6 @@ const AddSessionModal = ({ setIsLoading }: AddSessionModalProps) => {
 
   const addSessionBtn = <><AddIcon /> New <span className="hide-for-mobile">Session</span></>;
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = event.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-
-    if (name === "startDate" || name === "weeks") {
-      const startDate = name === "startDate" ? value : formData.startDate;
-      const weeks = name === "weeks" ? parseInt(value) : formData.weeks;
-      convertWeeksToEndDate(startDate, weeks);
-    }
-  };
-
   const convertWeeksToEndDate = (startDate?: string, weeks?: number) => {
     if (!startDate || !formData.startDate) return;
     const start = new Date(startDate || formData.startDate);
@@ -58,6 +44,20 @@ const AddSessionModal = ({ setIsLoading }: AddSessionModalProps) => {
       ...prevData,
       endDate: endDate.toISOString().split('T')[0], // Format as YYYY-MM-DD
     }));
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+
+    if (name === "startDate" || name === "weeks") {
+      const startDate = name === "startDate" ? value : formData.startDate;
+      const weeks = name === "weeks" ? parseInt(value) : formData.weeks;
+      convertWeeksToEndDate(startDate, weeks);
+    }
   };
 
   const handleSubmit = async(event: SubmitEvent<HTMLFormElement>) => {
