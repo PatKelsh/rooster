@@ -72,7 +72,7 @@ const AddClassModal = ({ setIsLoading }: { setIsLoading: Dispatch<SetStateAction
         closeOnAction={closeOnAction}
       >
         <div className="form-container modal-form">
-          <form id="location-form">
+          <form>
             <TextField
               label="Class Name"
               name="name"

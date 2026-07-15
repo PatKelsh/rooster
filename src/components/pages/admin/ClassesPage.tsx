@@ -3,15 +3,18 @@
 import { useEffect, useState } from "react";
 import { ClassProps } from "@/lib/props";
 import { fetchClasses } from "@/lib/api/class";
+import { BorderColor } from "@mui/icons-material";
 import { Add, DeleteForeverOutlined, ImportExport } from "@mui/icons-material";
 import AddClassModal from "@/components/modals/AddClass";
 import Button from "@/components/.ui/Button";
 import DeleteItemModal from "@/components/modals/DeleteItem";
+import ClassTableRow from "@/components/content/ClassTableRow";
 
 const AdminClassesMainPage = () => {
   const [classList, setClassList] = useState<ClassProps[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     if (isLoading) fetchClasses(setError, setIsLoading, setClassList);
@@ -38,19 +41,7 @@ const AdminClassesMainPage = () => {
             </div>
           </div>
           {classList.map((classItem) => (
-            <div key={classItem.id} className="table-row hover-reveal">
-              <div className="table-cell">
-                {classItem.name}
-              </div>
-              <div>
-                <DeleteItemModal
-                  itemId={classItem.id}
-                  type="class"
-                  name={classItem.name}
-                  setIsLoading={setIsLoading}
-                />
-              </div>
-            </div>
+            <ClassTableRow key={classItem.id} classItem={classItem} setIsLoading={setIsLoading} />
           ))}
         </div>
       </div>
