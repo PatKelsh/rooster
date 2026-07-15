@@ -6,6 +6,7 @@ import { fetchClasses } from "@/lib/api/class";
 import { Add, DeleteForeverOutlined, ImportExport } from "@mui/icons-material";
 import AddClassModal from "@/components/modals/AddClass";
 import Button from "@/components/.ui/Button";
+import DeleteItemModal from "@/components/modals/DeleteItem";
 
 const AdminClassesMainPage = () => {
   const [classList, setClassList] = useState<ClassProps[]>([]);
@@ -42,9 +43,12 @@ const AdminClassesMainPage = () => {
                 {classItem.name}
               </div>
               <div>
-                <Button className="icon transparent small danger reveal">
-                  <DeleteForeverOutlined />
-                </Button>
+                <DeleteItemModal
+                  itemId={classItem.id}
+                  type="class"
+                  name={classItem.name}
+                  setIsLoading={setIsLoading}
+                />
               </div>
             </div>
           ))}

@@ -42,7 +42,7 @@ const DeleteItemModal = ({
       console.log(`Error deleting ${type}:`, error);
     }
     if (type != "classDetails") {
-      router.push(`/admin/${type}s`);
+      router.push(`/admin/${type}${type === "class" ? "es" : "s"}`);
     }
   }
 
