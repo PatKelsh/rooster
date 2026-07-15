@@ -66,6 +66,7 @@ const SessionClassForm = ({
   const handleClassChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     const selectedClass = classOptions.find(option => option.id === value);
+    console.log("Selected class:", selectedClass);
     setFormData(prev => prev ? { ...prev, [name]: value, className: selectedClass ? selectedClass.name : "" } : prev);
   };
 

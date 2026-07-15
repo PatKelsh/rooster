@@ -37,7 +37,6 @@ const ClassDetailItem = ({
   });
 
   const onSubmit = async () => {
-    setIsLoading(true);
     setSubmitting(true);
     try {
       const response = await fetch(`/api/admin/classDetails?id=${classDetail.id}`, {
@@ -51,6 +50,7 @@ const ClassDetailItem = ({
         const errorData = await response.json();
         throw new Error(errorData.error || ("Failed to update class in session"));
       }
+      setIsLoading(true);
       setIsEditing(false);
     } catch (err) {
       console.log("Error updating class in session:", err);
