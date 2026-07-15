@@ -47,8 +47,8 @@ const SessionClassScheduleView = ({
         <div key={day} className="schedule-day-group">
           <h3>{day}</h3>
           {schedules.map((schedule, idx) => (
-            <div key={idx}>
-              <strong>{schedule.className}</strong>: {schedule.startTime} - {schedule.endTime}
+            <div key={idx} className="schedule-item">
+              {schedule.startTime} - {schedule.endTime}: <strong>{schedule.className}</strong>
             </div>
           ))}
         </div>
