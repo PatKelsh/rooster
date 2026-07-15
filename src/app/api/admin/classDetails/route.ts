@@ -53,8 +53,6 @@ export async function POST(request: NextRequest) {
 
     const newClassTermDetail = await createClassTermDetail(classTermDetailData);
 
-    console.log("New Class Term Detail created:", newClassTermDetail);
-
     return NextResponse.json(newClassTermDetail, { status: 201 });
   } catch (error) {
     return NextResponse.json(
@@ -78,6 +76,54 @@ export async function DELETE(request: NextRequest) {
 
     const deletedClassTermDetail = await deleteClassTermDetail(id);
     return NextResponse.json(deletedClassTermDetail, { status: 200 });
+  } catch (error) {
+    return NextResponse.json(
+      { error: `Internal Server Error: ${error instanceof Error ? error.message : "An unexpected error occurred"}` },
+      { status: 500 },
+    );
+  }
+}
+
+export async function PUT(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const classInstanceId = searchParams.get("id");
+
+    if (!classInstanceId) {
+      return NextResponse.json(
+        { error: "id query parameter is required" },
+        { status: 400 },
+      );
+    }
+    const { ...body } = await request.json();
+
+    const { price, capacity , classInstances } = body;
+
+    const updatedPrice = parseFloat(price);
+    
+    const updatedCapacity = parseInt(capacity, 10);
+
+    if (isNaN(updatedPrice) || isNaN(updatedCapacity)) {
+      return NextResponse.json(
+        { error: "Invalid price or capacity value" },
+        { status: 400 },
+      );
+    }
+
+    const updatedClassTermDetailData = {
+      ...body,
+      id: classInstanceId,
+      price: updatedPrice,
+      capacity: updatedCapacity,
+      classInstances: classInstances.map((instance: ClassInstanceProps) => ({
+        daysOfTheWeek: instance.daysOfTheWeek,
+        startTime: instance.startTime,
+        endTime: instance.endTime,
+      }))
+    };
+
+    const updatedClassTermDetail = await updateClassTermDetail(classInstanceId, updatedClassTermDetailData);
+    return NextResponse.json(updatedClassTermDetail, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { error: `Internal Server Error: ${error instanceof Error ? error.message : "An unexpected error occurred"}` },

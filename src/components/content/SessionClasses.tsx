@@ -54,9 +54,10 @@ const SessionClasses = ({ sessionId, sessionName }: { sessionId: string, session
           <>
             {classes.map((classDetail, index) => (
               <ClassDetailItem
-                key={classDetail.id}
+                key={index}
                 classDetail={classDetail}
                 sessionName={sessionName}
+                sessionId={sessionId}
                 setIsLoading={setIsLoading}
               />
             ))}

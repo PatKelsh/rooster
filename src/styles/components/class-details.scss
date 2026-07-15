@@ -121,6 +121,15 @@
     .form-container {
       width: 100%;
     }
+
+    .form-actions {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 10px;
+      margin-left: 50%;
+    }
   }
 
   .class-instance-days {

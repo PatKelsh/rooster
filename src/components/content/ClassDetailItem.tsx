@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { ClassDetailProps}  from "@/lib/props";
 import { BorderColor } from "@mui/icons-material";
 import SessionClassForm from "../forms/sessionClass";
@@ -10,7 +10,7 @@ import Button from "@/components/.ui/Button";
 interface ClassDetailItemProps {
   classDetail: ClassDetailProps;
   sessionId: string;
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
   sessionName?: string;
 }
 
@@ -35,6 +35,29 @@ const ClassDetailItem = ({
     })),
     termId: sessionId
   });
+
+  const onSubmit = async () => {
+    setIsLoading(true);
+    setSubmitting(true);
+    try {
+      const response = await fetch(`/api/admin/classDetails?id=${classDetail.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || ("Failed to update class in session"));
+      }
+      setIsEditing(false);
+    } catch (err) {
+      console.log("Error updating class in session:", err);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <div className={`admin-session-class-detail${isEditing ? " editing" : ""}`}>
@@ -74,9 +97,14 @@ const ClassDetailItem = ({
             setFormData={setFormData}
             formData={formData}
           />
-          <Button className="transparent" onClick={() => setIsEditing(false)}>
-            Cancel
-          </Button>
+          <div className="form-actions">
+            <Button className="w-icon" onClick={onSubmit} disabled={submitting}>
+              {submitting ? "Saving..." : "Save"}
+            </Button>
+            <Button className="transparent" onClick={() => setIsEditing(false)}>
+              Cancel
+            </Button>
+          </div>
         </>
       )}
     </div>
