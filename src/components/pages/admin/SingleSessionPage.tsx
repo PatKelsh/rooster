@@ -10,6 +10,7 @@ import Link from "next/link";
 import DeleteItemModal from "@/components/modals/DeleteItem";
 import EditSessionModal from "@/components/modals/EditSession";
 import SessionClasses from "@/components/content/SessionClasses";
+import StatusUpdateModal from "@/components/modals/SessionStatus";
 
 const SingleSessionPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -74,12 +75,17 @@ const SingleSessionPage = () => {
             <div className="session-description">
               {session.description}
             </div>
-            <div>
-              <div className="status-btn-container">
+            <div className="status-btn-container">
+              <StatusUpdateModal
+                setIsLoading={setIsLoading}
+                termId={session.id}
+                termStatus={session.status}
+              />
+              {/* <div className="status-btn-container">
                 <Button className="status-btn">
                   <Adjust />Go Live
                 </Button>
-              </div>
+              </div> */}
               <div className="admin-session-actions">
                 <div>
                   <DeleteItemModal
