@@ -2,10 +2,10 @@
 
 import { useRouter } from "next/navigation";
 import { signOut } from "@/lib/auth-client";
-import { Button } from "@/components/_ui/Button";
 import { Logout } from '@mui/icons-material';
+import Button from "@/components/.ui/Button";
 
-export const SignOutBtn = () => {
+const SignOutBtn = () => {
   const router = useRouter();
 
   const handleSignOut = async () => {
@@ -14,8 +14,10 @@ export const SignOutBtn = () => {
   }
 
   return (
-    <Button onClick={handleSignOut} className="danger w-icon">
-      <Logout /> Sign Out
+    <Button onClick={handleSignOut} className="w-icon sign-out-btn">
+      <Logout /> <span className="hide-for-mobile">Sign Out</span>
     </Button>
   )
 }
+
+export default SignOutBtn;

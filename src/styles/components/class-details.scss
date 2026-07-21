@@ -1,0 +1,228 @@
+@use '../.resources/colors.scss' as *;
+@use '../.resources/screen-sizes.scss' as *;
+
+// Form
+.add-session-class-form {
+  .MuiAutocomplete-root, .text-field-container {
+    margin-bottom: 10px;
+  }
+
+  .primary {
+    background-color: $session-form-btn-bg;
+    color: $session-form-btn-color;
+    margin-top: 20px;
+    opacity: 0.8;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.instance-fields {
+  background-color: $bg-color;
+  border: 1px solid $table-border-color;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+  .class-instance-days-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    FormHelperText {
+      margin-bottom: 0;
+    }
+  }
+
+.class-instance-days {
+  max-width: $xs;
+  margin-bottom: 10px;
+
+  .pill {
+    margin: 0 5px 5px 0;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    width: 50px;
+  }
+
+  .form-row {
+    display: flex;
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    justify-content: flex-start !important;
+  }
+}
+
+.admin-session-class-detail-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.view-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 20px;
+  align-items: center;
+  gap: 10px;
+
+  button {
+    background-color: $sort-btn-bg;
+    display: flex;
+    flex-direction: column;
+    max-width: 70px;
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &.active {
+      background-color: $sort-btn-active-bg;
+    }
+
+    div {
+      font-size: 0.7rem;
+    }
+  }
+}
+
+.schedule-day-group {
+  h3 {
+    color: $schedule-day-header-color;
+    font-family: Arial, Helvetica, sans-serif !important;
+    margin-bottom: 10px;
+  }
+
+  .schedule-item + .schedule-item {
+    margin-top: 5px;
+  }
+}
+
+.schedule-day-group + .schedule-day-group {
+  margin-top: 20px;
+}
+
+// Card
+.MuiPaper-root {
+  border: 1px solid $list-item-border-color !important;
+}
+
+.MuiPaper-root, .MuiAccordion-heading, .MuiButtonBase-root {
+  &::before {
+    content: none !important;
+  }
+
+  background-color: $list-item-bg !important;
+  border-radius: $list-item-border-radius !important;
+  box-shadow: none !important;
+  padding: 10px;
+
+  &:hover {
+    background-color: $list-item-bg !important;
+  }
+
+  h3 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+}
+
+.Mui-expanded {
+  margin: 0 !important;
+
+  .MuiCollapse-entered {
+    border-top: 1px solid $table-border-color;
+    padding-top: 10px;
+    transition: all 0.3s ease-in-out;
+  }
+}
+
+.admin-session-class-detail {
+  background-color: $list-item-bg;
+  border: 1px solid $list-item-border-color;
+  border-radius: $list-item-border-radius;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+
+  &.editing {
+    background-color: $list-item-editing-bg;
+    flex-direction: column;
+
+    .form-container {
+      width: 100%;
+    }
+
+    .form-actions {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 10px;
+      margin-left: 50%;
+    }
+  }
+
+  .class-instance-days {
+    .pill {
+      width: 50px;
+      font-size: 0.8rem;
+    }
+  }
+
+  .action-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+    .icon {
+      color: $slate-gray;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px;
+    }
+  }
+
+  // .reveal {
+  //   display: none;
+  // }
+
+  // &:hover {
+  //   .reveal {
+  //     display: block;
+  //   }
+  // }
+}
+
+.class-detail-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  color: $slate-gray;
+}
+
+@media (max-width: $sm) {
+  .class-instance-days {
+    .pill {
+      width: 45px;
+      font-size: 0.7rem;
+    }
+  }
+}

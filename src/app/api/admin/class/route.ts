@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import { createClass, deleteClass, getClassById } from "@/lib/prisma/class";
+import { createClass, deleteClass, getClassById, updateClass } from "@/lib/prisma/class";
 
 export async function GET(
   request: NextRequest
@@ -29,7 +29,7 @@ export async function GET(
 
 export async function POST(request: NextRequest) {
   try {
-    const { name, description, time } = await request.json();
+    const { name, description } = await request.json();
     if (!name) {
       return NextResponse.json(
         { error: "Name is required" },
@@ -39,6 +39,29 @@ export async function POST(request: NextRequest) {
 
     const newClass = await createClass({ name, description });
     return NextResponse.json(newClass, { status: 201 });
+  } catch (error) {
+    return NextResponse.json(
+      { error: `Internal Server Error: ${error instanceof Error ? error.message : "An unexpected error occurred"}` },
+      { status: 500 },
+    );
+  }
+}
+
+export async function PUT(request: NextRequest) {
+  try {
+    const { id, name, description } = await request.json();
+
+    console.log("Updating class with id:", id, "name:", name, "description:", description);
+
+    if (!name || !id) {
+      return NextResponse.json(
+        { error: "Name and ID are required" },
+        { status: 400 },
+      );
+    }
+
+    const updatedClass = await updateClass(id, { name, description });
+    return NextResponse.json(updatedClass, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { error: `Internal Server Error: ${error instanceof Error ? error.message : "An unexpected error occurred"}` },

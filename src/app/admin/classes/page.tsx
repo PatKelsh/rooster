@@ -1,5 +1,5 @@
-import AdminClassContent from "@/components/pages/classPage";
+import AdminClassesMainPage from "@/components/pages/admin/ClassesPage";
 
-export default function AdminClassesPage() {
-  return <AdminClassContent />
-}
+export default async function AdminClassesPage() {
+  return <AdminClassesMainPage />;
+};

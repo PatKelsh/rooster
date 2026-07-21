@@ -51,6 +51,8 @@ model ClassTermDetails {
   termId                  String
   price                   Float
   capacity                Int
+  locationId              String?
+  location                Location? @relation(fields: [locationId], references: [id])
   termSpecificDescription String?
   // teachers                ClassTeacherProfile[] @relation("ClassTermTeachers")
   classInstances          ClassInstance[]
@@ -65,9 +67,9 @@ model ClassTermDetails {
 model ClassInstance {
   id                  String   @id @default(cuid())
   classTermDetailsId  String
-  dayOfTheWeek        String
   startTime           String
   endTime             String
+  daysOfTheWeek       String[]
   // roster             RosterItem[]
   classTermDetails    ClassTermDetails @relation(fields: [classTermDetailsId], references: [id], onDelete: Cascade)
   createdAt           DateTime         @default(now())
@@ -75,6 +77,18 @@ model ClassInstance {
 
   // @@unique([classTermDetailsId])
   @@map("class_instance")
+}
+
+model Location {
+  id          String @id @default(cuid())
+  name        String
+  type        String
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  classes     ClassTermDetails[]
+
+  @@map("location")
 }
 
 model RosterItem {
@@ -94,8 +108,9 @@ model Term {
   id          String             @id @default(cuid())
   name        String
   description String?
-  startDate   DateTime
-  endDate     DateTime
+  startDate   String
+  endDate     String
+  weeks       Int
   status      TermStatus         @default(DRAFT)
   classes     ClassTermDetails[]
   createdAt   DateTime           @default(now())

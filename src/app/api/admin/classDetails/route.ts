@@ -52,6 +52,7 @@ export async function POST(request: NextRequest) {
     };
 
     const newClassTermDetail = await createClassTermDetail(classTermDetailData);
+
     return NextResponse.json(newClassTermDetail, { status: 201 });
   } catch (error) {
     return NextResponse.json(
@@ -115,7 +116,7 @@ export async function PUT(request: NextRequest) {
       price: updatedPrice,
       capacity: updatedCapacity,
       classInstances: classInstances.map((instance: ClassInstanceProps) => ({
-        dayOfTheWeek: instance.dayOfTheWeek,
+        daysOfTheWeek: instance.daysOfTheWeek,
         startTime: instance.startTime,
         endTime: instance.endTime,
       }))

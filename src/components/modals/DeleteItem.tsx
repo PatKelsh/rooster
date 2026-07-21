@@ -1,45 +1,48 @@
-"use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Modal } from "@/components/_ui/Modal";
-import { Button } from "@/components/_ui/Button";
-import { deleteBtnContent } from "@/components/buttons/btnContent";
-import { Alert, AlertMsgProps } from "@/components/_ui/Alert";
+import { titleCaseFormat } from "@/helpers/formatting";
+import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+import ModalComponent from "@/components/.ui/Modal";
+import Button from "@/components/.ui/Button";
 
 interface DeleteItemModalProps {
   itemId: string;
-  type: "user" | "term" | "class" | "classDetails";
-  modalBtnSize?: "small" | "medium" | "large";
+  type: "session" | "class" | "classDetails";
   name?: string;
+  setIsLoading?: React.Dispatch<React.SetStateAction<boolean>>;
+  btnStyle?: "icon" | "forCard";
 }
 
-export const DeleteItemModal = ({
+const DeleteItemModal = ({
   itemId,
   type,
-  modalBtnSize = "medium",
   name,
+  setIsLoading,
+  btnStyle = "icon"
 }: DeleteItemModalProps) => {
-  const [alertMsg, setAlertMsg] = useState<AlertMsgProps | null>(null);
   const router = useRouter();
+
+  const itemType = type === "session" ? "term" : type;
 
   const deleteItem = async () => {
     try {
-      const response = await fetch(`/api/admin/${type}?id=${itemId}`, {
+      if (setIsLoading) setIsLoading(true);
+      const response = await fetch(`/api/admin/${itemType}?id=${itemId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
       });
 
-      if (response.ok) {
-        router.back();
-      } else {
+      if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || `Failed to delete ${type}`);
       }
     } catch (error) {
-      setAlertMsg({ message: `Failed to delete ${type}: ${error instanceof Error ? error.message : "An unexpected error occurred"}`, type: 'error' });
+      console.log(`Error deleting ${type}:`, error);
+    }
+    if (type != "classDetails") {
+      router.push(`/admin/${type}${type === "class" ? "es" : "s"}`);
     }
   }
 
@@ -51,22 +54,46 @@ export const DeleteItemModal = ({
     )
   }
 
+  const buttonStyle = () => {
+    switch (btnStyle) {
+      case "icon":
+        return "icon danger reveal";
+      case "forCard":
+        return "transparent no-border danger card-action-btn";
+      default:
+        return "";
+    }
+  }
+
+  const buttonContent = () => {
+    switch (btnStyle) {
+      case "icon":
+        return <DeleteForeverOutlinedIcon />;
+      case "forCard":
+        return (
+          <>
+            <DeleteForeverOutlinedIcon /> {` Delete ${type}`}
+          </>
+        );
+      default:
+        return "";
+    }
+  }
+
   return (
-    <>
-      <Modal
-        modalBtnContent={deleteBtnContent()}
-        btnAction={confirmDelete()}
-        modalBtnClassName={`danger w-icon ${modalBtnSize}`}
-        includeCancel={true}
-        danger={true}
-      >
-        <div className="modal-content danger-modal">
-          <h2>Confirm Delete {type === "user" ? "User" : type === "term" ? "Session" : "Class"}</h2>
-          {alertMsg && <Alert type={alertMsg.type} className="transparent no-margin no-padding">{alertMsg.message}</Alert>}
-          <p>Are you sure you want to delete {name ? <strong>{name}</strong> : `this ${type === "user" ? "user" : "session"}`}?</p>
-          <p>If deleted, this action cannot be undone and will erase all associated data.</p>
-        </div>
-      </Modal>
-    </>
-  )
-}
+    <ModalComponent
+      ariaTitle="Delete Item"
+      ariaDescription="Are you sure you want to delete this item?"
+      modalBtnContent={buttonContent()}
+      modalBtnClassName={buttonStyle()}
+      btnAction={confirmDelete()}
+    >
+      <div>
+        <p>Are you sure you want to delete {name ? (<>the {type}: <strong>{titleCaseFormat(name)}</strong></>) : `this ${type}`}?</p>
+        <p>If deleted, this action cannot be undone and will erase all associated data.</p>
+      </div>
+    </ModalComponent>
+  );
+};
+
+export default DeleteItemModal;

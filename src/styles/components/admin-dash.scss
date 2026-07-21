@@ -1,0 +1,124 @@
+@use '../.resources/colors.scss' as *;
+@use '../.resources/screen-sizes.scss' as *;
+
+#admin-dashboard-container {
+  display: flex;
+  flex-direction: column-reverse;
+
+  .admin-dashboard-nav {
+    background-color: $navbar-color;
+    bottom: 0;
+    color: $admin-banner-link-text;
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+
+    a, a:visited {
+      color: $admin-dash-link-text;
+      font-size: 0.8rem;
+      text-decoration: none;
+      opacity: 0.65;
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    .hide-on-mobile {
+      display: none;
+    }
+
+    .active {
+      opacity: 1;
+    }
+
+    ul {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+
+      li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.admin-dash-page-container {
+  .admin-page-header {
+    margin-bottom: 20px;
+  }
+
+  .admin-page-subheader {
+    color: $admin-sub-header-text-color;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    align-items: center;
+  }
+}
+
+
+@media (min-width: $sm) {
+  #admin-dashboard-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    .admin-dashboard-nav {
+      position: relative;
+      min-height: 85vh;
+      width: 250px;
+
+    .hide-on-mobile {
+      display: flex;
+    }
+
+      a, a:visited {
+        align-items: center;
+        display: flex;
+        font-size: 0.85rem;
+        font-weight: 400;
+        gap: 10px;
+        padding: 10px 20px;
+        width: 150px !important;
+
+        &.active {
+          background-color: $admin-dash-link-active-bg !important;
+          border-radius: 0.85rem;
+          color: $admin-dash-link-active-color !important;
+        }
+
+        svg {
+          width: 25px;
+          height: 25px;
+        }
+      }
+
+      ul {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        li {
+          margin-bottom: 15px;
+          text-align: left;
+          width: 250px;
+        }
+      }
+    }
+  }
+
+  .main-content-container {
+    flex: 1;
+  }
+}

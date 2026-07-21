@@ -1,0 +1,26 @@
+@use '../.resources/colors.scss' as *;
+@use '../.resources/screen-sizes.scss' as *;
+
+.pill {
+  background-color: $bg-color;
+  border: 1px solid $slate-gray;
+  border-radius: $pill-radius;
+  color: $slate-gray;
+  display: inline-block;
+  font-size: .7rem;
+  letter-spacing: 0.75px;
+  margin-left: 10px;
+  padding: 5px 10px;
+  
+  &.draft {
+    background-color: $draft-bg;
+    border: 1px solid $draft-color;
+    color: $draft-color;
+  }
+
+  &.live {
+    background-color: $live-bg;
+    border: 1px solid $live-color;
+    color: $live-color;
+  }
+}
