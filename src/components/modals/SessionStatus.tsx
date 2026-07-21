@@ -17,6 +17,43 @@ const StatusUpdateModal = ({
   termId,
   termStatus
 }: StatusUpdateModalProps) => {
+  const [closeOnAction, setCloseOnAction] = useState(false);
+  const [status, setStatus] = useState(termStatus);
+
+  const resetCloseOnAction = () => {
+    setTimeout(() => {
+      setCloseOnAction(false);
+    }, 1000);
+  }
+
+  if (!status || !termId) return null;
+
+  if (status === "ENDED") {
+    return (
+      <div className="term-status ended">
+        Session Ended
+      </div>
+    )
+  }
+
+  const updateStatus = () => {
+    setIsLoading(true);
+    try {
+      if (status === "LIVE") {
+        updateTermStatusById(termId, "DRAFT");
+        setStatus("DRAFT");
+      } else {
+        updateTermStatusById(termId, "LIVE");
+        setStatus("LIVE");
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setCloseOnAction(true);
+      setIsLoading(false);
+      resetCloseOnAction();
+    }
+  }
 
   const modalBtn = () => {
     switch (termStatus) {
@@ -31,16 +68,30 @@ const StatusUpdateModal = ({
     }
   }
 
+  const changeStatus = () => {
+    return (
+      <Button onClick={updateStatus}>
+        Set Session Live
+      </Button>
+    );
+  }
+
   return (
     <>
       <ModalComponent
         ariaTitle="Update Session Status"
         ariaDescription="Modal to update the status of the session"
+        btnAction={changeStatus()}
+        closeOnAction={closeOnAction}
+        modalHeader={<h2>Update Session Status</h2>}
         modalBtnContent={modalBtn()}
         modalBtnClassName="w-icon status-btn"
       >
-        <div>
-          Modal content
+        <div className="modal-content">
+          <p>Are you sure you want to change the session status to <strong>Live</strong>?</p>
+          <p>Changing the status to <strong>Live</strong> will make the session visible to students and allow them to register for classes.</p>
+          {/* TODO: Send email to students for live classes. */}
+          {/* <p>Students will receive an email notification that the session is now live.</p> */}
         </div>
       </ModalComponent>
     </>
