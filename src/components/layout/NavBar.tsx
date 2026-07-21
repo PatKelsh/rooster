@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useWindowSize } from "@/helpers/useWindowSize";
 import { UserProps } from "@/lib/props";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import Link from "next/link";
 import Drawer from "@/components/.ui/Drawer";
 import MainNavLinks from "@/components/content/MainNavLinks";
@@ -60,12 +61,19 @@ const NavBar = () => {
           </div>
           {user ? (
             <div className="logged-in-links">
-              {user?.role != "USER" && pathname.includes("/admin") && (
-                <div className="dashboard-link-container">
-                  <Link href="/" className="dashboard-link short-mobile-btn">
-                    <AccountCircleIcon /> <span className="hide-for-mobile">Student Dashboard</span>
-                  </Link>
-                </div>
+              {user?.role !== "USER" && pathname.includes("/admin") && (
+                <>
+                  <div>
+                    <Link href="/admin/settings" className="dashboard-link short-mobile-btn show-for-mobile">
+                      <SettingsOutlinedIcon /> <span className="hide-for-mobile">Admin Settings</span>
+                    </Link>
+                  </div>
+                  <div>
+                    <Link href="/" className="dashboard-link short-mobile-btn">
+                      <AccountCircleIcon /> <span className="hide-for-mobile">Student Dashboard</span>
+                    </Link>
+                  </div>
+                </>
               )}
               <div>
                 <SignOutButton />

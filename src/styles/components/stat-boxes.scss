@@ -102,6 +102,13 @@
     font-size: 1.75rem;
     font-weight: 600;
   }
+
+  .stat-value-string {
+    color: $stat-box-value-color;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
 }
 
 @media (max-width: 1098px) {

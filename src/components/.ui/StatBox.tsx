@@ -11,7 +11,7 @@ import {
 
 interface StatBoxProps {
   title: string;
-  total?: number;
+  total?: number | string;
   link?: string;
   linkText?: string;
   otherStat?: string;
@@ -66,7 +66,13 @@ const StatBox = ({
       </div>
       <div className="stat-content">
         <div>
-          <div className="stat-value">{total ?? 0}</div>
+          {typeof total === "number" ? (
+            <>
+              <div className="stat-value">{total ?? 0}</div>
+            </>
+          ) : (
+            <div className="stat-value-string">{total ?? 0}</div>
+          )}
           {otherStat && <div className="stat-other">{otherStat}</div>}
         </div>
         {link && (

@@ -30,6 +30,10 @@
       }
     }
 
+    .hide-on-mobile {
+      display: none;
+    }
+
     .active {
       opacity: 1;
     }
@@ -74,6 +78,10 @@
       position: relative;
       min-height: 85vh;
       width: 250px;
+
+    .hide-on-mobile {
+      display: flex;
+    }
 
       a, a:visited {
         align-items: center;

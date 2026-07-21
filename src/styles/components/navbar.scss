@@ -83,6 +83,10 @@
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+
+  .show-for-mobile {
+    display: none !important;
+  }
 }
 
 .main-nav-btn {
@@ -98,10 +102,6 @@
   #navbar-content {
     padding-bottom: 10px !important;
     padding-top: 5px !important;
-  }
-
-  .dashboard-link-container {
-    width: 150px;
   }
 
   .dashboard-link {
@@ -170,15 +170,24 @@
 }
 
 @media (max-width: $md) {
-
-  .logged-in-links {
-    max-width: 100px;
-  }
-
   .short-mobile-btn {
     max-width: 40px;
     svg {
       margin: 0 5px;
+      height: 18px !important;
+    }
+  }
+}
+
+
+@media (max-width: calc($sm + 1px)) {
+  .logged-in-links {
+    .show-for-mobile {
+      display: block !important;
+      svg {
+        margin: 0 12px !important;
+        height: 16px !important;
+      }
     }
   }
 }

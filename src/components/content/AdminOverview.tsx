@@ -39,7 +39,7 @@ const DashboardOverview = () => {
           linkText="View All"
           otherStat={`${stats.totalSessions} total`}
         />
-        <StatBox title="enrollments" />
+        <StatBox title="enrollments" total="coming soon" />
       </div>
     </div>
   );

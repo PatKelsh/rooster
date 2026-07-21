@@ -31,11 +31,6 @@ const AdminSessionsMainPage = () => {
     return text;
   }
 
-  const linkName = (name: string) => {
-    const formattedName = name.replace(/\s+/g, '-').toLowerCase();
-    return formattedName;
-  }
-
   return (
     <div className="admin-dash-page-container">
       <div className="admin-page-header">

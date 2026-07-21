@@ -55,8 +55,8 @@ const AdminNavLinks = () => {
           </div>
         </a>
       </li>
-      <li>
-        <a href="/admin/settings" className={pathname === "/admin/settings" ? "active" : ""}>
+      <li className="hide-on-mobile">
+        <a href="/admin/settings" className={pathname === "/admin/settings" ? "active " : ""}>
           <SettingsOutlined />
           <div>
             Settings

@@ -17,4 +17,10 @@
     border: 1px solid $draft-color;
     color: $draft-color;
   }
+
+  &.live {
+    background-color: $live-bg;
+    border: 1px solid $live-color;
+    color: $live-color;
+  }
 }
