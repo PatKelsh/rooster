@@ -3,6 +3,7 @@ import { isSignedIn } from '@/helpers/isSignedIn';
 import { getSession } from '@/lib/get-session';
 import { notFound } from 'next/navigation';
 import { AccountForm } from '@/components/forms/AccountForm';
+import { PaymentTestForm } from '@/components/forms/PaymentTestForm';
 
 export default async function ProfilePage() {
   await isSignedIn();
@@ -16,6 +17,7 @@ export default async function ProfilePage() {
     <div className="profile-page-content">
       <h1>Account Information</h1>
       <AccountForm user={user} />
+      <PaymentTestForm />
       <div className="btn-center">
         <SignOutBtn />
       </div>
