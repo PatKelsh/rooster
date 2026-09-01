@@ -1,0 +1,231 @@
+@use '../.resources/colors.scss' as *;
+@use '../.resources/screen-sizes.scss' as *;
+
+// Single Session Page
+
+.admin-session {
+  background-color: $card-bg;
+  border: 1px solid $table-border-color;
+  border-radius: $list-item-border-radius;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+
+  .session-description {
+    color: $list-item-font-color;
+    padding-top: 20px;
+  }
+}
+
+.admin-session-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .admin-session-header-info {
+    color: $list-item-font-color;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .week-counter {
+    background-color: $week-count-bg;
+    border-radius: 5px;
+    color: $week-count-color;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 10px;
+    padding: 10px;
+    padding-top: 15px;
+    min-height: 32px;
+    text-align: center;
+    line-height: .75rem;
+
+    .week-count-number {
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      font-size: 2rem;
+    }
+  }
+}
+
+.admin-session-classes-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+
+  h2 {
+    color: $header-4-color;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+}
+
+.admin-session-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 20px;
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .card-action-btn {
+    color: $card-action-btn-color;
+    border-bottom: 1px solid $light-vanilla-custard !important;
+    padding: 5px;
+
+    &:hover {
+      background-color: transparent;
+      border-radius: 0;
+      border-bottom: 1px solid $dark-teal !important;
+      color: $dark-teal;
+    }
+
+    &.danger {
+      &:hover {
+        border-bottom: 1px solid $brown-red !important;
+        color: $brown-red;
+      }
+    }
+  }
+}
+
+.status-btn-container {
+  border-top: 1px solid $table-border-color;
+  margin-top: 20px;
+  padding-top: 20px;
+
+  .status-btn {
+    background-color: $dark-teal;
+    gap: 5px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    letter-spacing: 1px;
+    opacity: 0.8;
+
+    max-width: 80%;
+    margin: 0 auto;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+// List Item
+
+.session-list-item-container {
+  background-color: $list-item-bg;
+  border: 1px solid $list-item-border-color;
+  border-radius: $list-item-border-radius;
+  color: $slate-gray;
+  display: flex;
+  flex-direction: row;
+  font-size: .8rem;
+  letter-spacing: 0.5px;
+  justify-content: space-between;
+
+  .list-item-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+
+    .week-count {
+      background-color: $week-count-bg;
+      border-radius: 5px;
+      color: $week-count-color;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-weight: bold;
+      margin: auto 5px;
+      padding: 10px;
+      min-height: 32px;
+      text-align: center;
+      line-height: .5rem;
+
+      .week-count-number {
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-size: 1.2rem;
+      }
+    }
+
+    .list-item-info {
+      display: flex;
+      flex-direction: column;
+      margin: auto 0;
+      padding: 10px;
+
+      .list-item-link {
+        text-decoration: none !important;
+        h3 {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          font-weight: 600;
+          margin: 0;
+          text-decoration: none !important;
+          &:hover {
+            color: $list-item-link-hover-color;
+          }
+        }
+        &:hover {
+          color: $list-item-link-hover-color;
+        }
+      }
+
+      .list-item-dates {
+        margin: 5px 0;
+        opacity: 0.9;
+      }
+
+      .list-item-name {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+  }
+
+  .list-item-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+    a, a:visited {
+      border-top-right-radius: $list-item-border-radius;
+      border-bottom-right-radius: $list-item-border-radius;
+      color: $list-item-link-color;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: 0 20px;
+
+      &:hover {
+        background-color: $list-item-link-hover-bg;
+        color: $list-item-link-hover-color;
+      }
+    }
+  }
+}
+
+.session-list-item-container + .session-list-item-container {
+  margin-top: 20px;
+}

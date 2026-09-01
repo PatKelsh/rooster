@@ -27,12 +27,14 @@ export interface TermProps {
   status: TermStatus;
   createdAt: string;
   updatedAt: string;
+  weeks: number;
+  classDetails: ClassDetailProps[];
 }
 
 export interface ClassInstanceProps {
   id: string;
   classTermDetailId: string;
-  dayOfTheWeek: string;
+  daysOfTheWeek: string[];
   startTime: string;
   endTime: string;
 }

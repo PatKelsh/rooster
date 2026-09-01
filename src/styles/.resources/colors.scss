@@ -1,0 +1,177 @@
+$brown-red: rgba(155,34,38, 1);
+$oxidized-iron: rgba(74, 32, 18, 1);
+$rusty-spice: rgba(150, 75, 0, 1);
+$burnt-caramel: rgba(202, 103, 2, 1);
+$golden-orange: rgba(238, 155, 0, 1);
+$sunflower-gold: rgba(252, 191, 73, 1);
+$vanilla-custard: rgba(244, 236, 224, 1);
+$light-vanilla-custard: rgba(253, 248, 242, 1);
+$pearl-aqua: rgba(148,210,189, 1);
+$dark-cyan: rgba(0, 147, 150, 1);
+$dark-teal: rgba(0, 95, 115, 1);
+$ink-black: rgba(0, 18, 25, 1);
+
+$meadow-green: rgba(82, 182, 154, 1);
+$meadow-green-15: rgba(82, 182, 154, 0.15);
+
+$ocean-blue: rgba(0, 119, 182, 1);
+$ocean-blue-15: rgba(0, 180, 216, 0.15);
+
+$tekhelet: rgba(66, 44, 114, 1);
+$african-violet: rgba(142, 123, 183, 1);
+
+$eerie-black: rgba(33, 37, 41, 1);
+$onyx: rgba(52, 58, 64, 1);
+$outer-space: rgba(73, 80, 87, 1);
+$slate-gray: rgba(108, 117, 125, 1);
+$french-gray-2: rgba(173, 181, 189, 1);
+$french-gray: rgba(206, 212, 218, 1);
+$seasalt: rgba(248, 249, 250, 1);
+$antiflash-white: rgba(233, 236, 239, 1);
+$platinum: rgba(222, 226, 230, 1);
+
+
+$oxidized-iron-75: rgba(74, 32, 18, 0.75);
+$vanilla-custard-75: rgba(244, 236, 224, 0.75);
+$seasalt-75: rgba(248, 249, 250, 0.75);
+$vanilla-custard-50: rgba(244, 236, 224, 0.5);
+$brown-red-50: rgba(155,34,38, 0.5);
+$oxidized-iron-50: rgba(74, 32, 18, 0.5);
+$slate-gray-25: rgba(108, 117, 125, 0.25);
+$seasalt-50: rgba(248, 249, 250, 0.5);
+$oxidized-iron-25: rgba(74, 32, 18, 0.25);
+$rusty-spice-25: rgba(150, 75, 0, 0.25);
+$pearl-aqua-25: rgba(148,210,189, 0.25);
+$french-gray-50: rgba(206, 212, 218, 0.5);
+$seasalt-25: rgba(248, 249, 250, 0.25);
+$vanilla-custard-25: rgba(244, 236, 224, 0.15);
+$brown-red-15: rgba(155,34,38, 0.15);
+$sunflower-gold-15: rgba(252, 191, 73, 0.15);
+$french-gray-25: rgba(206, 212, 218, 0.25);
+$burnt-caramel-13: rgba(202, 103, 2, 0.13);
+$brown-red-10: rgba(155,34,38, 0.1);
+$oxidized-iron-10: rgba(74, 32, 18, 0.10);
+$pearl-aqua-10: rgba(148,210,189, 0.1);
+
+$background-color: $vanilla-custard;
+$navigation-color: $ink-black;
+
+// Body colors
+$bg-color: $background-color;
+$navbar-color: $navigation-color;
+$navbar-link-color: $bg-color;
+$navbar-border-color: $vanilla-custard-50;
+$header-color: $navbar-color;
+$footer-color: $slate-gray;
+
+// Buttons
+$primary-btn-bg: $brown-red;
+$primary-btn-bg-hover: $oxidized-iron;
+$primary-btn-color: $seasalt;
+
+// Btn Types
+$sign-out-btn-bg: transparent;
+$sign-out-btn-color: $slate-gray;
+$sign-out-btn-bg-hover: $rusty-spice-25;
+
+$svg-color: $ink-black;
+$svg-color-danger: $brown-red;
+$svg-color-danger-background-hover: $brown-red-15;
+
+// Logged In Navigation
+$lg-navbar-color: $light-vanilla-custard;
+$li-nav-border-color: $slate-gray-25;
+
+// Forms
+$input-bg: $bg-color;
+
+// Admin Navigation
+$admin-navbar-text: $vanilla-custard-75;
+$admin-navbar-str-text: $golden-orange;
+$admin-banner-link-bg: $brown-red;
+$admin-banner-link-text: $seasalt;
+$admin-dash-link-text: $vanilla-custard;
+$admin-dash-link-active-bg: $brown-red;
+$admin-dash-link-active-color: $seasalt;
+
+$admin-sub-header-text-color: $slate-gray;
+
+$back-link-color: $slate-gray;
+$back-link-hover-color: $brown-red;
+
+// Admin Dashboard
+$header-4-color: $slate-gray;
+
+// Modals
+$modal-bg: $light-vanilla-custard;
+$modal-btn-bg: $dark-teal;
+$modal-btn-tr-color: $slate-gray;
+
+// Stat Boxes
+$stat-box-bg: $seasalt-50;
+$stat-box-border-color: $slate-gray-25;
+$stat-box-header-color: $slate-gray;
+$stat-box-value-color: $ink-black;
+$stat-box-link-color: $dark-teal;
+$stat-icon-colors: $brown-red, $dark-teal, $burnt-caramel, $oxidized-iron;
+$stat-icon-bg-colors: $brown-red-10, $pearl-aqua-25, $sunflower-gold-15, $oxidized-iron-10;
+
+// Tables
+$table-header-bg: $seasalt;
+$table-border-color: $slate-gray-25;
+$table-border-radius: 20px;
+$table-cell-bg: $light-vanilla-custard;
+$table-double-arrow: $slate-gray;
+$table-cell-bg-hover: $seasalt;
+$table-row-editing-bg: $brown-red-10;
+
+// Cards
+$card-bg: $light-vanilla-custard;
+$card-padding: 20px;
+$card-subtitle-color: $slate-gray;
+$card-icon-color: $brown-red;
+$card-icon-size: 1.2rem;
+$card-notes-color: $slate-gray;
+$indoor-icon-bg: $burnt-caramel-13;
+$indoor-icon-color: $burnt-caramel;
+$outdoor-icon-bg: $meadow-green-15;
+$outdoor-icon-color: $dark-teal;
+$online-icon-bg: $ocean-blue-15;
+$online-icon-color: $ocean-blue;
+$card-section-btn-color: $slate-gray;
+$card-section-btn-hover: $bg-color;
+$card-section-editing-bg: $brown-red-10;
+
+$card-action-btn-color: $slate-gray;
+
+// Session List Item
+$list-item-bg: $light-vanilla-custard;
+$list-item-border-color: $slate-gray-25;
+$list-item-font-color: $slate-gray;
+$list-item-border-radius: 10px;
+$list-item-link-color: $slate-gray;
+$list-item-link-hover-bg: $bg-color;
+$list-item-link-hover-color: $brown-red;
+
+$list-item-editing-bg: $light-vanilla-custard;
+
+$week-count-color: $dark-teal;
+$week-count-bg: $meadow-green-15;
+
+$sort-btn-bg: $dark-teal;
+$sort-btn-active-bg: $onyx;
+
+$schedule-day-header-color: $dark-teal;
+
+// Session Form
+$session-form-bg: $pearl-aqua-10;
+$session-form-header-color: $dark-teal;
+$session-form-btn-color: $light-vanilla-custard;
+$session-form-btn-bg: $dark-cyan; 
+
+// Pills
+$pill-radius: 20px;
+$draft-bg: $french-gray-25;
+$draft-color: $slate-gray;
+$live-bg: $pearl-aqua-25;
+$live-color: $dark-teal;

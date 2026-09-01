@@ -1,14 +1,13 @@
 import { ReactNode } from "react";
-import { SideNavLayout } from "@/components/layouts/SideNavLayout";
-import { AdminDashLinks } from "@/components/AdminDashLinks";
+import AdminDashboard from "@/components/layout/AdminDashboard";
 import { isAdmin } from "@/helpers/isSignedIn";
 
 export default async function AdminDashLayout({ children }: { children: ReactNode }) {
   await isAdmin();
 
   return (
-    <SideNavLayout linkNode={<AdminDashLinks />}>
+    <AdminDashboard>
       {children}
-    </SideNavLayout>
+    </AdminDashboard>
   );
 }

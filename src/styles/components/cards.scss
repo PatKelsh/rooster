@@ -1,0 +1,237 @@
+@use '../.resources/colors.scss' as *;
+@use '../.resources/screen-sizes.scss' as *;
+
+.card-container {
+  border: 1px solid $table-border-color;
+  border-radius: $table-border-radius;
+  margin: 20px auto;
+  max-width: $sm;
+
+  .card {
+    background-color: $card-bg;
+    border-radius: $table-border-radius;
+    
+    .card-header {
+      border-bottom: 1px solid $table-border-color;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: $card-padding;
+
+      h2 {
+        font-family: 'Roboto', sans-serif;
+        font-size: 1rem;
+        font-weight: 550;
+        letter-spacing: 0.5px;
+      }
+
+      .card-header-content {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .card-icon {
+        color: $card-icon-color;
+        font-size: 1.2rem;
+      }
+
+      .card-subtitle {
+        color: $card-subtitle-color;
+        font-family: 'Roboto', sans-serif;
+        font-size: 0.8rem;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+        margin-top: 5px;
+      }
+    }
+
+    .card-section {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: $card-padding;
+      border-bottom: 1px solid $table-border-color;
+
+      .action-buttons {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 10px;
+
+        button {
+          color: $card-section-btn-color;
+          opacity: 0.8;
+
+          &:hover {
+            background-color: $card-section-btn-hover;
+            opacity: 1;
+          }
+
+          &.danger {
+            color: $svg-color-danger;
+
+            &:hover {
+              background-color: $svg-color-danger-background-hover;
+            }
+          }
+        }
+      }
+
+      &.no-content {
+        font-family: 'Roboto', sans-serif;
+        font-size: 0.8rem;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+        color: $slate-gray;
+        display: flex;
+        justify-content: center;
+      }
+
+      &.editing {
+        background-color: $card-section-editing-bg;
+
+        .form-container {
+          width: 100%;
+          padding: 0;
+
+          .form-actions {
+            display: flex;
+            justify-content: flex-start;
+            gap: 10px;
+
+            max-width: $xxs;
+
+            .transparent {
+              background-color: transparent;
+              color: $slate-gray;
+              border: 1px solid $slate-gray;
+              opacity: 0.8;
+
+              &:hover {
+                opacity: 1;
+              }
+            }
+          }
+        }
+
+        input, select, .MuiInputBase-root {
+          background-color: $input-bg;
+        }
+      }
+
+      h3 {
+        font-family: 'Roboto', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 525;
+        letter-spacing: 0.8px;
+      }
+
+      .card-section-content {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .reveal {
+        display: none;
+      }
+
+      &:hover {
+        .reveal {
+          display: block;
+        }
+      }
+
+      .card-section-title {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+      }
+
+      .card-section-labels {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 5px;
+
+        .card-section-label {
+          font-family: 'Roboto', sans-serif;
+          font-size: 0.7rem;
+          font-weight: 500;
+          letter-spacing: 0.5px;
+          padding: 2px 6px;
+          border-radius: 4px;
+          text-transform: uppercase;
+
+          &.indoor {
+            background-color: $indoor-icon-bg;
+            color: $indoor-icon-color !important;
+          }
+
+          &.outdoor {
+            background-color: $outdoor-icon-bg;
+            color: $outdoor-icon-color !important;
+          }
+
+          &.online {
+            background-color: $online-icon-bg;
+            color: $online-icon-color !important;
+          }
+        }
+      }
+    }
+
+    .card-section:last-child {
+      border-bottom: none;
+    }
+
+    .card-section-notes {
+      color: $card-notes-color;
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      margin-top: 5px;
+    }
+
+    .card-section-icon {
+      color: $card-icon-color;
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.location-type-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 25%;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  &.indoor {
+    background-color: $indoor-icon-bg;
+    color: $indoor-icon-color !important;
+  }
+
+  &.outdoor {
+    background-color: $outdoor-icon-bg;
+    color: $outdoor-icon-color !important;
+  }
+
+  &.online {
+    background-color: $online-icon-bg;
+    color: $online-icon-color !important;
+  }
+}

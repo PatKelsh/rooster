@@ -1,5 +1,6 @@
-import TermPageContent from "@/components/pages/termPage";
+import AdminSessionsMainPage from "@/components/pages/admin/SessionsPage";
 
-export default function AdminSessionsPage() {
-  return <TermPageContent />
-}
+export default async function AdminSessionsPage() {
+  return <AdminSessionsMainPage />;
+
+};

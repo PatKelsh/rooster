@@ -11,8 +11,14 @@ type FetchTermsResponse = Omit<
 export const createTerm = async (
   data: Prisma.TermCreateInput,
 ): Promise<Term> => {
+  const { name } = data;
+  const linkName = name.replace(/\s+/g, '-').toLowerCase();
+
   return await db.term.create({
-    data,
+    data: {
+      ...data,
+      name: linkName,
+    },
   });
 };
 
@@ -37,23 +43,32 @@ export const getAllTerms = async (): Promise<Term[]> => {
   });
 };
 
-export const getLiveTerms = async (): Promise<Omit<Term, "createdAt" | "updatedAt" | "description">[]> => {
-  return await db.term.findMany({
+export const getTermByNameAndDate = async (name: string, date: string): Promise<Term | null> => {
+  return await db.term.findFirst({
     where: {
-      status: "LIVE",
+      name,
+      startDate: date,
     },
-    select: {
-      id: true,
-      name: true,
-      startDate: true,
-      endDate: true,
-      status: true,
-    },
-    orderBy: [
-      { startDate: "asc" }
-    ],
   });
 };
+
+// export const getLiveTerms = async (): Promise<Omit<Term, "createdAt" | "updatedAt" | "description">[]> => {
+//   return await db.term.findMany({
+//     where: {
+//       status: "LIVE",
+//     },
+//     select: {
+//       id: true,
+//       name: true,
+//       startDate: true,
+//       endDate: true,
+//       status: true,
+//     },
+//     orderBy: [
+//       { startDate: "asc" }
+//     ],
+//   });
+// };
 
 export const getTermById = async (id: string): Promise<Term | null> => {
   return await db.term.findUnique({
@@ -69,12 +84,21 @@ export const updateTermById = async (
   id: string,
   data: UpdateTermWithoutStatus,
 ): Promise<Term> => {
-  return await db.term.update({
+  const findTerm = await getTermById(id);
+  if (!findTerm) {
+    throw new Error("Term not found");
+  }
+
+  const updatedTerm = await db.term.update({
     where: {
       id,
     },
-    data,
+    data: {
+      ...data,
+    },
   });
+
+  return updatedTerm;
 };
 
 export const updateTermStatus = async (

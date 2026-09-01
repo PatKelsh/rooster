@@ -13,6 +13,7 @@ export const fetchClassDetailsByTerm = async (
     if (!res.ok) throw new Error("Failed to fetch class details.");
     const data = await res.json();
     setClassDetailsList(data);
+    return data;
   } catch (err) {
     setError(err instanceof Error ? err.message : "Failed to load class details");
   } finally {
