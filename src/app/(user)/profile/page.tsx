@@ -2,7 +2,7 @@ import { SignOutBtn } from '@/components/SignOutBtn';
 import { isSignedIn } from '@/helpers/isSignedIn';
 import { getSession } from '@/lib/get-session';
 import { notFound } from 'next/navigation';
-import { AccountForm } from '@/components/forms/AccountForm';
+// import { AccountForm } from '@/components/forms/AccountForm';
 import { PaymentTestForm } from '@/components/forms/PaymentTestForm';
 
 export default async function ProfilePage() {
@@ -16,7 +16,7 @@ export default async function ProfilePage() {
   return (
     <div className="profile-page-content">
       <h1>Account Information</h1>
-      <AccountForm user={user} />
+      {/* <AccountForm user={user} /> */}
       <PaymentTestForm />
       <div className="btn-center">
         <SignOutBtn />

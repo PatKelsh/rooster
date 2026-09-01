@@ -10,7 +10,7 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import Link from "next/link";
 import Drawer from "@/components/.ui/Drawer";
 import MainNavLinks from "@/components/content/MainNavLinks";
-import SignOutButton from "@/components/SignOutBtn";
+import { SignOutBtn } from "@/components/SignOutBtn";
 import AdminBanner from "./AdminBanner";
 
 const NavBar = () => {
@@ -76,7 +76,7 @@ const NavBar = () => {
                 </>
               )}
               <div>
-                <SignOutButton />
+                <SignOutBtn />
               </div>
             </div>
           ) : (

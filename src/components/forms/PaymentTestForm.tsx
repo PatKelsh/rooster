@@ -1,9 +1,9 @@
 'use client';
 
 import { FormEvent, useState } from 'react';
-import { Alert, AlertMsgProps } from '@/components/_ui/Alert';
-import { Button } from '@/components/_ui/Button';
-import { TextField } from '@/components/_ui/TextField';
+// import { Alert, AlertMsgProps } from '@/components/.ui/Alert';
+import { Button } from '@/components/.ui/Button';
+import { TextField } from '@/components/.ui/TextField';
 
 interface PaymentFormData {
   serviceName: string;
@@ -32,7 +32,7 @@ export const PaymentTestForm = () => {
   const [formData, setFormData] = useState<PaymentFormData>(initialFormData);
   const [fieldErrors, setFieldErrors] = useState<PaymentFieldErrors>({});
   const [submitting, setSubmitting] = useState(false);
-  const [alertMsg, setAlertMsg] = useState<AlertMsgProps | null>(null);
+  // const [alertMsg, setAlertMsg] = useState<AlertMsgProps | null>(null);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -61,7 +61,7 @@ export const PaymentTestForm = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setAlertMsg(null);
+    // setAlertMsg(null);
 
     if (!validateForm()) {
       return;
@@ -84,21 +84,21 @@ export const PaymentTestForm = () => {
 
       if (!response.ok) {
         const message = data?.error || 'Failed to create checkout session.';
-        setAlertMsg({ message, type: 'error' });
+        // setAlertMsg({ message, type: 'error' });
         return;
       }
 
       const successData = data as PaymentApiSuccessResponse;
 
       if (!successData.checkoutUrl) {
-        setAlertMsg({ message: 'Checkout session was created but no redirect URL was returned.', type: 'error' });
+        // setAlertMsg({ message: 'Checkout session was created but no redirect URL was returned.', type: 'error' });
         return;
       }
 
-      setAlertMsg({ message: `Checkout session ${successData.sessionId} created. Redirecting...`, type: 'success' });
+      // setAlertMsg({ message: `Checkout session ${successData.sessionId} created. Redirecting...`, type: 'success' });
       window.location.assign(successData.checkoutUrl);
     } catch {
-      setAlertMsg({ message: 'Unexpected error while creating checkout session.', type: 'error' });
+      // setAlertMsg({ message: 'Unexpected error while creating checkout session.', type: 'error' });
     } finally {
       setSubmitting(false);
     }
@@ -108,11 +108,11 @@ export const PaymentTestForm = () => {
     <div className="form-container section-container payment-test-section">
       <div className="form-header">
         <h3>Test Payment</h3>
-        {alertMsg && (
+        {/* {alertMsg && (
           <Alert type={alertMsg.type} className="transparent no-margin no-padding">
             {alertMsg.message}
           </Alert>
-        )}
+        )} */}
       </div>
       <form onSubmit={handleSubmit}>
         <TextField
