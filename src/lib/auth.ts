@@ -32,7 +32,12 @@ export const auth = betterAuth({
         input: true
       }
     },
-  }
+  },
+  advanced: {
+    ipAddress: {
+      ipAddressHeaders: ['x-forwarded-for'],
+    },
+  },
 })
 
 export type Session = typeof auth.$Infer.Session;
